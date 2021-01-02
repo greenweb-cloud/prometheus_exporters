@@ -35,9 +35,9 @@ systemctl enable haproxy_exporter
 echo "Setup complete.
 Add the following lines to /etc/prometheus/prometheus.yml:
 
-  - job_name: 'haproxy_exporter'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9100']
+  - job_name: 'haproxy{1,2,3}'
+      static_configs:
+                  - targets: ['ip:9101','ip:9101','ip:9101']
+
 "
 
