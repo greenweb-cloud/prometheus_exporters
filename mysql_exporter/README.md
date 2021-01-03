@@ -3,7 +3,7 @@
 mysql exporter for prometheus monitoring
 
 
-##Add the following lines to /etc/prometheus/prometheus.yml:
+## Add the following lines to /etc/prometheus/prometheus.yml:
 '''
   - job_name: 'mysqld_exporter'
     scrape_interval: 5s
