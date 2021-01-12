@@ -6,6 +6,9 @@ service for prometheus monitoring
 
 Blackbox likes exporter used to exports HP Server Integrated Lights Out (iLO) states to Prometheus.
 
+## dashboard
+https://grafana.com/grafana/dashboards/13709
+
 ### Gauges
 
 Here are the status code of gauge
