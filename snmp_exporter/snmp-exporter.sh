@@ -21,7 +21,7 @@ After=network-online.target
 User=snmp_exporter
 Group=snmp_exporter
 Type=simple
-ExecStart=/usr/local/bin/snmp_exporter
+ExecStart=/usr/local/bin/snmp_exporter --config.file /etc/prometheus/snmp.yml
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/snmp_exporter.service
