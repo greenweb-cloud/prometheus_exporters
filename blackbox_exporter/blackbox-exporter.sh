@@ -3,9 +3,9 @@
 #https://github.com/prometheus/blackbox_exporter/releases/download/v0.18.0/blackbox_exporter-0.18.0.linux-amd64.tar.gz
 BLACKBOX_EXPORTER_VERSION="0.18.0"
 wget https://github.com/prometheus/blackbox_exporter/releases/download/v${BLACKBOX_EXPORTER_VERSION}/blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64.tar.gz
-tar -xzvf consul_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64.tar.gz
-cd consul_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64
-cp consul_exporter /usr/local/bin
+tar -xzvf blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64.tar.gz
+cd blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64
+cp blackbox_exporter /usr/local/bin
 
 # create user
 useradd --no-create-home --shell /bin/false blackbox_exporter
@@ -21,7 +21,7 @@ After=network-online.target
 User=blackbox_exporter
 Group=blackbox_exporter
 Type=service
-ExecStart=/usr/local/bin/blackbox_exporter
+ExecStart=/usr/local/bin/blackbox_exporter  --config.file=/etc/prometheus/blackbox.yml
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/blackbox_exporter.service
