@@ -9,12 +9,14 @@ HTTP, HTTPS, DNS, TCP and ICMP.
 
 
 ### step 1
+```
 cp blackbox.yml /etc/prometheus/
-
+```
 
 ### step 2
+```
 ./ blackbox-exporter.sh
-
+```
 ### step 3 
 add config to prometheus exporter
 
