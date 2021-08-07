@@ -1,0 +1,9 @@
+---
+# tasks file for prometheus
+
+# tasks file for mysql_backup
+- include: compute.yml
+- include: haproxy.yml
+- include: nfs.yml
+- include: rabbitmq.yml
+- include: rabbitmq.yml
