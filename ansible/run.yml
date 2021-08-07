@@ -1,0 +1,6 @@
+---
+- hosts: "{{ machine }}"
+  tasks:
+    - name: deploy backup service
+      import_role:
+        name: prometheus
