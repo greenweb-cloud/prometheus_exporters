@@ -23,7 +23,7 @@
   tags:
     - monitor_nfs
 
-      ##- name: restart prometheus
-      ##shell: "systemctl restart prometheus"
-      ##tags:
-      ##- monitor_compute
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - monitor_nfs
