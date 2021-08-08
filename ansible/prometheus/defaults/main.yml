@@ -19,6 +19,18 @@ compute_ip:
   - "compute11.iranserver.com:9100"
   - "compute12.iranserver.com:9100"
   - "compute13.iranserver.com:9100"
+  - "compute14.iranserver.com:9100"
+  - "compute15.iranserver.com:9100"
+  - "compute16.iranserver.com:9100"
+  - "compute17.iranserver.com:9100"
+  - "compute18.iranserver.com:9100"
+  - "compute19.iranserver.com:9100"
+  - "compute20.iranserver.com:9100"
+  - "compute21.iranserver.com:9100"
+  - "compute22.iranserver.com:9100"
+  - "compute23.iranserver.com:9100"
+  - "compute24.iranserver.com:9100"
+  - "compute25.iranserver.com:9100"
 
 infra_ip:
   - "infra1.iranserver.com:9100"
