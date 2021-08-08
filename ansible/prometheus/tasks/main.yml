@@ -6,4 +6,4 @@
 - include: haproxy.yml
 - include: nfs.yml
 - include: rabbitmq.yml
-- include: rabbitmq.yml
+- include: infra.yml

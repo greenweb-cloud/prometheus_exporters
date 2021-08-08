@@ -33,3 +33,5 @@ infra1.iranserver.com
 infra2.iranserver.com
 infra3.iranserver.com
 
+[monitor]
+prometheus.iranserver.com
