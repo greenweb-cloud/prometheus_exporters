@@ -1,2 +1,29 @@
 ---
 # tasks file for prometheus
+#
+- name: scp config_monitoring to glance
+  copy:
+    src: "{{ exporter }}"
+    dest: "{{ exporter_pass }}"
+    mode: 0755
+  tags:
+    - glance
+    
+
+- name: run script for install node_exporter
+  shell: "{{ run_command }}"
+  tags:
+    - glance
+    
+- name: Configure node_exporter glance for prometheus
+  template:
+    src: glance.j2
+    dest: /etc/prometheus/glance.json
+    mode: 0755
+  tags:
+    - monitor_glance
+
+      ##- name: restart prometheus
+      ##shell: "systemctl restart prometheus"
+      ##tags:
+      ##- monitor_compute

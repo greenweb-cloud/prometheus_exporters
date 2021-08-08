@@ -24,5 +24,13 @@ infra_ip:
   - "infra1.iranserver.com:9100"
   - "infra2.iranserver.com:9100"
   - "infra3.iranserver.com:9100"
+nfs_ip:
+  - "nfs.iranserver.com:9100"
+
+glance_ip:
+  - "glance1.iranserver.com:9100"
+  - "glance2.iranserver.com:9100"
+  - "glance3.iranserver.com:9100"
+
 
 

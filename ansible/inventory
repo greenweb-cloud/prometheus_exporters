@@ -35,3 +35,14 @@ infra3.iranserver.com
 
 [monitor]
 prometheus.iranserver.com
+
+[nfs]
+nfs.iranserver.com
+
+[glance]
+glance1.iranserver.com
+glance2.iranserver.com
+glance3.iranserver.com
+
+
+

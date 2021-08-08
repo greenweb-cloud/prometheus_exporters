@@ -1,2 +1,29 @@
 ---
 # tasks file for prometheus
+#
+- name: scp config_monitoring to nfs
+  copy:
+    src: "{{ exporter }}"
+    dest: "{{ exporter_pass }}"
+    mode: 0755
+  tags:
+    - nfs
+    
+
+- name: run script for install node_exporter
+  shell: "{{ run_command }}"
+  tags:
+    - nfs
+    
+- name: Configure node_exporter nfs for prometheus
+  template:
+    src: nfs.j2
+    dest: /etc/prometheus/nfs.json
+    mode: 0755
+  tags:
+    - monitor_nfs
+
+      ##- name: restart prometheus
+      ##shell: "systemctl restart prometheus"
+      ##tags:
+      ##- monitor_compute
