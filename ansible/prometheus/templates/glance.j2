@@ -1,0 +1,16 @@
+[
+{% for item in glance_ip %} 
+   {% set value = item.split('.') %}
+   {
+        "targets": [
+            "{{ item }}"
+        ],
+        "labels": {
+            "glance": "{{ value[0] }}"
+        }
+    }
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+]

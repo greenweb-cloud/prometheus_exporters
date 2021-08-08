@@ -1,27 +1,27 @@
 ---
 # tasks file for prometheus
 #
-- name: scp config_monitoring to glance
+- name: scp config_monitoring to infra
   copy:
     src: "{{ exporter }}"
     dest: "{{ exporter_pass }}"
     mode: 0755
   tags:
-    - glance
+    - infra
     
 
 - name: run script for install node_exporter
   shell: "{{ run_command }}"
   tags:
-    - glance
+    - infra
     
-- name: Configure node_exporter glance for prometheus
+- name: Configure node_exporter infra for prometheus
   template:
-    src: glance.j2
-    dest: /etc/prometheus/glance.json
+    src: infra.j2
+    dest: /etc/prometheus/infra.json
     mode: 0755
   tags:
-    - monitor_glance
+    - monitor_infra
 
       ##- name: restart prometheus
       ##shell: "systemctl restart prometheus"

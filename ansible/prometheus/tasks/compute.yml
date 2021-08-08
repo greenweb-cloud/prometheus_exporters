@@ -15,4 +15,15 @@
   tags:
     - compute
     
+- name: Configure node_exporter compute for prometheus
+  template:
+    src: compute.j2
+    dest: /etc/prometheus/compute.json
+    mode: 0755
+  tags:
+    - monitor_compute
 
+      ##- name: restart prometheus
+      ##shell: "systemctl restart prometheus"
+      ##tags:
+      ##- monitor_compute

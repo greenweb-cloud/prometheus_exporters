@@ -5,3 +5,32 @@
 exporter: "../files/node-exporter.sh"
 exporter_pass: "/home/"
 run_command: "/home/node-exporter.sh"
+compute_ip:
+  - "compute1.iranserver.com:9100"
+  - "compute2.iranserver.com:9100"
+  - "compute3.iranserver.com:9100"
+  - "compute4.iranserver.com:9100"
+  - "compute5.iranserver.com:9100"
+  - "compute6.iranserver.com:9100"
+  - "compute7.iranserver.com:9100"
+  - "compute8.iranserver.com:9100"
+  - "compute9.iranserver.com:9100"
+  - "compute10.iranserver.com:9100"
+  - "compute11.iranserver.com:9100"
+  - "compute12.iranserver.com:9100"
+  - "compute13.iranserver.com:9100"
+
+infra_ip:
+  - "infra1.iranserver.com:9100"
+  - "infra2.iranserver.com:9100"
+  - "infra3.iranserver.com:9100"
+nfs_ip:
+  - "nfs.iranserver.com:9100"
+
+glance_ip:
+  - "glance1.iranserver.com:9100"
+  - "glance2.iranserver.com:9100"
+  - "glance3.iranserver.com:9100"
+
+
+
