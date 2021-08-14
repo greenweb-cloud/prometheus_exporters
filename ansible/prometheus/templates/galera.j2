@@ -1,0 +1,16 @@
+[
+{% for item in galera_ip %} 
+   {% set value = item.split('.') %}
+   {
+        "targets": [
+            "{{ item }}"
+        ],
+        "labels": {
+            "galera": "{{ value[0] }}"
+        }
+    }
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+]

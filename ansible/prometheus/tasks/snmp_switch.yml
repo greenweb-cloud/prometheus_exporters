@@ -1,0 +1,52 @@
+---
+#tasks file for snmp exporter
+
+
+#TODO check service exist
+
+#- name: Check if snmp_exporter  service exist
+#  shell: "service snmp_exporter status"
+#  register: snmp_status
+#  tags:
+#    - snmp
+
+#- debug: msg="{{snmp_status}}"
+
+- name: scp config_monitoring snmp exporter
+  copy:
+    src: "{{ source_snmp_exporter }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+#  when: not snmp_status.stat.exists
+  tags:
+    - snmp
+    - snmp_exporter
+   
+
+- name: run script for install snmp exporter
+  shell: "{{ run_snmp_exporter  }}"
+  tags:
+    - snmp
+    - snmp_exporter
+    
+- name: Copy snmp_exporter target switch for prometheus
+  template:
+    src: snmp_switch.j2
+    dest: "{{template_path}}snmp_switch.yml"
+    mode: 0755
+  tags:
+    - snmp
+    - snmp_config
+
+
+- name: restart snmp_exporter
+  shell: "systemctl restart snmp_exporter"
+  tags:
+    - snmp
+    - snmp_config
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - snmp
+    - reset_prometheus
