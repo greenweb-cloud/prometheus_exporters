@@ -1,6 +1,5 @@
 ---
 # tasks file for prometheus
-#
     
 
 - name: add Rabbitmq manager in Rabbitmq

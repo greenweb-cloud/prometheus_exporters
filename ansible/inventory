@@ -44,6 +44,7 @@ glance1.iranserver.com
 glance2.iranserver.com
 glance3.iranserver.com
 
+
 [rabbit]
 rabbitmq1.iranserver.com
 rabbitmq2.iranserver.com
