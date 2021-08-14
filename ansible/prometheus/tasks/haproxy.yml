@@ -1,6 +1,28 @@
 ---
 #tasks file for haproxy exporter
 
+- name: Create haproxy service config files
+  template:
+    src: haproxy_config.j2
+    dest: "/etc/haproxy/conf.d/monitoring"
+  tags:
+    - haproxy
+    - template
+
+- name: "Append haproxy.cfg with content of temporary file"
+  shell: cat conf.d/monitoring >> haproxy.cfg
+  args:
+    chdir: "/etc/haproxy/"
+  tags:
+    - haproxy
+    - template
+
+- name: reload haproxy
+  shell: "systemctl reload haproxy"
+  tags:
+    - haproxy
+    - template
+
 
 - name: scp config_monitoring haproxy exporter
   copy:

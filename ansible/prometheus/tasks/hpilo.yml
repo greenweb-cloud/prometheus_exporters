@@ -1,7 +1,16 @@
 ---
 #tasks file for hpilo exporter
 
+- name: Install packages "{{ pkgs_install }}"
+  apt:
+    name: "{{ pkgs_install }}"
+    state: present
+  tags:
+    - hpilo
 
+- name: Install bottle python package
+  pip:
+    name: hpilo-exporter
 
 - name: scp config_monitoring hpilo exporter
   copy:

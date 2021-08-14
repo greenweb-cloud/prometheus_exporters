@@ -35,6 +35,7 @@ run_haproxy_exporter: "{{dest_path}}{{haproxy_exporter}}.sh"
 
 
 #hp ilo_exporter
+pkgs_install: ['python-pip']
 hpilo_exporter : "hpilo-exporter"
 source_hpilo_exporter : "{{source_path}}{{hpilo_exporter}}.sh"
 run_hpilo_exporter : "{{dest_path}}{{hpilo_exporter}}.sh"

@@ -21,7 +21,7 @@ User=haproxy_exporter
 Group=haproxy_exporter
 Type=simple
 ExecStart=/usr/local/bin/haproxy_exporter \
---haproxy.scrape-uri="http://ip:9595/stats;csv"
+--haproxy.scrape-uri="http://0.0.0.0:9595/stats;csv"
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/haproxy_exporter.service
