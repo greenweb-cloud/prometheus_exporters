@@ -23,7 +23,6 @@
   tags:
     - monitor_glance
 
-
 - name: restart node_exporter
   shell: "systemctl restart node_exporter"
   tags:

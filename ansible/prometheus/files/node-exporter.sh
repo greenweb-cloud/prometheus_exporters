@@ -1,4 +1,5 @@
 #!/bin/bash
+
 NODE_EXPORTER_VERSION="1.2.2"
 wget https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz
 tar -xzvf node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz

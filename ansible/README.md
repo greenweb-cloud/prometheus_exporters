@@ -15,7 +15,8 @@ you need to change inventory file for senario
 ```
 # step3
 
-you need to run command for configuration in prometheus
+
+You must run the following command to configure Prometheus
 
 ```
 ansible-playbook -i /path/to/hosts --tag monitor_infra -e 'machine=monitor' run.yml

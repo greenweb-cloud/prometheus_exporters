@@ -1,4 +1,5 @@
 ---
+
 #tasks file for haproxy exporter
 
 - name: Create haproxy service config files
@@ -57,3 +58,4 @@
   shell: "systemctl restart prometheus"
   tags:
     - haproxy_config
+
