@@ -1,10 +1,61 @@
 ---
+# Copyright 2021 , GreenWeb Co
+# Licensed under the Apache License, Version 2.0 (the "License");
+ 
 # defaults file for prometheus
-#exporter: "/opt/prometheus_exporters/ansible/prometheus/files/exporter"
-#exporter: "/opt/prometheus_exporters/node_exporter/node-exporter.sh"
-exporter: "../files/node-exporter.sh"
-exporter_pass: "/home/"
-run_command: "/home/node-exporter.sh"
+
+#general
+debug: False
+dest_path: "/home/"
+source_path: "../files/"
+template_path : "/etc/prometheus/conf.d/"
+
+
+
+#node expoter
+node_expoter: "node-exporter"
+source_node_exporter: "{{source_path}}{{node_exporter}}.sh"
+run_node_exporter: "{{dest_path}}{{node_exporter}}.sh"
+
+
+#snmp_exporter
+snmp_exporter : "snmp-exporter"
+source_snmp_exporter: "{{source_path}}{{snmp_exporter}}.sh"
+run_snmp_exporter: "{{dest_path}}{{snmp_exporter}}.sh"
+
+#haproxy_exporter
+haproxy_exporter : "haproxy-exporter"
+source_haproxy_exporter: "{{source_path}}{{haproxy_exporter}}.sh"
+run_haproxy_exporter: "{{dest_path}}{{haproxy_exporter}}.sh"
+
+
+#icmp_exporter
+#icmp_exporter: "../files/snmp-exporter.sh"
+#run_command: "/home/snmp-exporter.sh"
+
+
+#hp ilo_exporter
+pkgs_install: ['python-pip']
+hpilo_exporter : "hpilo-exporter"
+source_hpilo_exporter : "{{source_path}}{{hpilo_exporter}}.sh"
+run_hpilo_exporter : "{{dest_path}}{{hpilo_exporter}}.sh"
+
+
+#blaccbox_exporter
+#blaccbox_exporter: "../files/blackbox-exporter.sh"
+#run_command: "/home/blackbox-exporter.sh"
+
+
+#rabbitmq
+add_monitor_rabbit: "rabbitmq-plugins enable rabbitmq_prometheus"
+
+#galera exporter
+galera_exporter: "../files/mysql-exporter.sh"
+run_command_galera: "/home/mysql-exporter.sh"
+
+
+#-------------------------------------- hosts -------------------------------------------------
+
 compute_ip:
   - "compute1.iranserver.com:9100"
   - "compute2.iranserver.com:9100"
@@ -45,4 +96,58 @@ glance_ip:
   - "glance3.iranserver.com:9100"
 
 
+snmp_ip:
+  - "sw-00312.iranserver.com"
+  - "sw-00313.iranserver.com"
+  - "sw-00314.iranserver.com"
+  - "sw-00315.iranserver.com"  
 
+haproxy_ip:
+  - "infra1.iranserver.com:9101"
+  - "infra2.iranserver.com:9101"
+  - "infra3.iranserver.com:9101"
+
+
+rabbitmq_ip:
+  - "rabbitmq1.iranserver.com:15692"
+  - "rabbitmq2.iranserver.com:15692"
+  - "rabbitmq3.iranserver.com:15692"
+
+rabbitmq_ip:
+  - "galera1.iranserver.com:9100"
+  - "galera2.iranserver.com:9100"
+  - "galera3.iranserver.com:9100"
+
+
+hpilo_ip:
+  - "ilo-elk.iranserver.com"
+  - "ilo-isvps202.iranserver.com"
+  - "ilo-infra1.iranserver.com"
+  - "ilo-infra1.iranserver.com"
+  - "ilo-infra2.iranserver.com"
+  - "ilo-infra3.iranserver.com"
+  - "ilo-compute1.iranserver.com"
+  - "ilo-compute2.iranserver.com"
+  - "ilo-compute3.iranserver.com"
+  - "ilo-compute4.iranserver.com"
+  - "ilo-compute5.iranserver.com"
+  - "ilo-compute6.iranserver.com"
+  - "ilo-compute7.iranserver.com"
+  - "ilo-compute8.iranserver.com"
+  - "ilo-compute9.iranserver.com"
+  - "ilo-compute10.iranserver.com"
+  - "ilo-compute11.iranserver.com"
+  - "ilo-compute12.iranserver.com"
+  - "ilo-compute13.iranserver.com"
+  - "ilo-compute14.iranserver.com"
+  - "ilo-compute15.iranserver.com"
+  - "ilo-compute16.iranserver.com"
+  - "ilo-compute17.iranserver.com"
+  - "ilo-compute18.iranserver.com"
+  - "ilo-compute19.iranserver.com"
+  - "ilo-compute20.iranserver.com"
+  - "ilo-compute21.iranserver.com"
+  - "ilo-compute22.iranserver.com"
+  - "ilo-compute23.iranserver.com"
+  - "ilo-compute24.iranserver.com"
+  - "ilo-compute25.iranserver.com"

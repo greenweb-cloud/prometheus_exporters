@@ -1,33 +1,35 @@
 ---
 # tasks file for prometheus
 #
-- name: scp config_monitoring to computs
+- name: scp config_monitoring to galera mysql
   copy:
     src: "{{ source_node_exporter }}"
-    dest: "{{ dest_path  }}"
+    dest: "{{ dest_path   }}"
     mode: 0755
   tags:
-    - compute
+    - galera
     
+
 - name: run script for install node_exporter
   shell: "{{ run_node_exporter }}"
   tags:
-    - compute
+    - galera
     
-- name: Configure node_exporter compute for prometheus
+- name: Configure node_exporter galera mysql for prometheus
   template:
-    src: compute.j2
-    dest: /etc/prometheus/compute.json
+    src: galera.j2
+    dest: /etc/prometheus/galera.json
     mode: 0755
   tags:
-    - monitor_compute
+    - monitor_galera
 
 - name: restart node_exporter
   shell: "systemctl restart node_exporter"
   tags:
-    - compute
+    - galera
+
 
 - name: restart prometheus
   shell: "systemctl restart prometheus"
   tags:
-    - monitor_compute
+    - monitor_galera

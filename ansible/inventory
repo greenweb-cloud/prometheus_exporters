@@ -45,4 +45,13 @@ glance2.iranserver.com
 glance3.iranserver.com
 
 
+[rabbit]
+rabbitmq1.iranserver.com
+rabbitmq2.iranserver.com
+rabbitmq3.iranserver.com
+
+[galera]
+galera1.iranserver.com
+galera2.iranserver.com
+galera3.iranserver.com
 

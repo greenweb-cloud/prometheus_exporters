@@ -15,6 +15,7 @@ you need to change inventory file for senario
 ```
 # step3
 
+
 You must run the following command to configure Prometheus
 
 ```

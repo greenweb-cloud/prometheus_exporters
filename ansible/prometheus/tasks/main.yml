@@ -8,3 +8,5 @@
 - include: rabbitmq.yml
 - include: infra.yml
 - include: glance.yml
+- include: snmp_switch.yml
+- include: hpilo.yml
