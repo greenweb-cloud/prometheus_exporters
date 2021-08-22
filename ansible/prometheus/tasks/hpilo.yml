@@ -31,7 +31,7 @@
 - name: Copy hpilo_exporter target switch for prometheus
   template:
     src: hpilo.j2
-    dest: "{{template_path}}hpilo.yml"
+    dest: "{{template_path}}hpilo.json"
     mode: 0755
   tags:
     - hpilo
