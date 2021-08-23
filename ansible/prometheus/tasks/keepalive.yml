@@ -1,0 +1,29 @@
+---
+# tasks file for prometheus
+#
+- name: scp config keepalived monitoring to infra
+  copy:
+    src: "{{ source_keepalived_exporter  }}"
+    dest: "{{ dest_path  }}"
+    mode: 0755
+  tags:
+    - keepalived
+    
+
+- name: run script for install keepalived_exporter
+  shell: "{{ run_keepalived_exporter  }}"
+  tags:
+    - keepalived
+    
+- name: Configure keepalived_exporter keepalived for prometheus
+  template:
+    src: keepalived.j2
+    dest: /etc/prometheus/conf.d/keepalived.json
+    mode: 0755
+  tags:
+    - monitor_keepalived
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - monitor_keepalived
