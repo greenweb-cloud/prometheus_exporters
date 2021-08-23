@@ -1,0 +1,9 @@
+---
+# defaults file for grafana
+url: "url"
+user: "user"
+password: "pass"
+org_id: 1
+uid: "uid"
+path: "path"
+grafana_api_key : "grafana_api_key"
