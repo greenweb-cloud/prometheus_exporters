@@ -29,6 +29,12 @@ source_haproxy_exporter: "{{source_path}}{{haproxy_exporter}}.sh"
 run_haproxy_exporter: "{{dest_path}}{{haproxy_exporter}}.sh"
 
 
+#keepalive_exporter
+keepalived_exporter : "keepalived-exporter"
+source_keepalived_exporter: "{{source_path}}{{keepalived_exporter}}.sh"
+run_keepalived_exporter: "{{dest_path}}{{keepalived_exporter}}.sh"
+
+
 #icmp_exporter
 #icmp_exporter: "../files/snmp-exporter.sh"
 #run_command: "/home/snmp-exporter.sh"
@@ -52,6 +58,9 @@ add_monitor_rabbit: "rabbitmq-plugins enable rabbitmq_prometheus"
 #galera exporter
 galera_exporter: "../files/mysql-exporter.sh"
 run_command_galera: "/home/mysql-exporter.sh"
+
+
+
 
 
 #-------------------------------------- hosts -------------------------------------------------

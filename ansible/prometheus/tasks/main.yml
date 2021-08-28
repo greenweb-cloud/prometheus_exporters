@@ -10,3 +10,4 @@
 - include: glance.yml
 - include: snmp_switch.yml
 - include: hpilo.yml
+- include: keepalive.yml
