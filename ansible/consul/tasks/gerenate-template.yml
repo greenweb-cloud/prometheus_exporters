@@ -15,3 +15,12 @@
     mode: 0755
   tags:
     - blackbox_consul
+
+- name: generate hp ilo config
+  template:
+    src: hpilo.j2
+    dest: "{{dest_config_path}}service_hpilo_exporter.json"
+    mode: 0755
+  tags:
+    - hpilo_consul
+
