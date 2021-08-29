@@ -1,38 +1,43 @@
-Role Name
+Import and Export Grafana Dashboard 
 =========
 
-A brief description of the role goes here.
+with this playbook you can import and export dashboard with json file
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+must be install ansible and garafana
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+in file defaults/main.yml you can set 
+url: "url"
+user: "user"
+password: "pass"
+org_id: 1
+uid: "uid"
+path: "path"
+grafana_api_key : "grafana_api_key"
+
+
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+you must be generate json file or export dasboard for import it !
 
 Example Playbook
 ----------------
+for run playbook for import and export run below commad 
+note: you must be set inventory
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - ansible-playbook -i inventory --tag grafana_import -e 'machine=monitor' run.yml
+    - ansible-playbook -i inventory --tag grafana_export -e 'machine=monitor' run.yml
 
 License
 -------
-
 BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+GreenWeb Co(Ali Ebrahimpour )
