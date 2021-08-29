@@ -1,0 +1,21 @@
+---
+# tasks file for prometheus
+    
+
+- name: add Rabbitmq manager in Rabbitmq
+  shell: "{{ add_monitor_rabbit }}"
+  tags:
+    - rabbit
+    
+- name: Configure rabbitmq for prometheus
+  template:
+    src: rabbitmq.j2
+    dest: /etc/prometheus/rabbitmq.json
+    mode: 0755
+  tags:
+    - monitor_rabbit
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - monitor_rabbit

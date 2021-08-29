@@ -1,0 +1,16 @@
+[
+{% for item in infra_ip %} 
+   {% set value = item.split('.') %}
+   {
+        "targets": [
+            "{{ item }}"
+        ],
+        "labels": {
+            "infra": "{{ value[0] }}"
+        }
+    }
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+]

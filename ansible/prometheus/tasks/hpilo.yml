@@ -1,0 +1,51 @@
+---
+#tasks file for hpilo exporter
+
+- name: Install packages "{{ pkgs_install }}"
+  apt:
+    name: "{{ pkgs_install }}"
+    state: present
+  tags:
+    - hpilo
+
+- name: Install bottle python package
+  pip:
+    name: hpilo-exporter
+
+- name: scp config_monitoring hpilo exporter
+  copy:
+    src: "{{ source_hpilo_exporter }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+  tags:
+    - hpilo
+    - hpilo_exporter
+   
+
+- name: run script for install hpilo exporter
+  shell: "{{ run_hpilo_exporter  }}"
+  tags:
+    - hpilo
+    - hpilo_exporter
+    
+- name: Copy hpilo_exporter target switch for prometheus
+  template:
+    src: hpilo.j2
+    dest: "{{template_path}}hpilo.json"
+    mode: 0755
+  tags:
+    - hpilo
+    - hpilo_config
+
+
+- name: restart hpilo_exporter
+  shell: "systemctl restart hpilo_exporter"
+  tags:
+    - hpilo
+    - hpilo_config
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - hpilo
+    - reset_prometheus

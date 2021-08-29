@@ -1,0 +1,15 @@
+{ "services":[
+{% for item in snmp_ip %} 
+   {
+        "name": "blackbox - {{ item }}",
+        "tags": [
+            "blackbox:{{ item }}",
+            "blackbox_consul"
+        ]
+    }
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+  ]
+}

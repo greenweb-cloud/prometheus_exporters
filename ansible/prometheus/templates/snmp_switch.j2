@@ -1,0 +1,5 @@
+#manage by anbile snmp target
+- targets:
+{% for item in snmp_ip %} 
+  -  "{{ item }}"
+{% endfor %}

@@ -1,0 +1,17 @@
+[
+{% for item in hpilo_ip %}
+   {% set value = item.split('.') %}
+{
+        "targets": [
+            "{{ item }}"
+        ],
+        "labels": {
+            "ilo": "{{item}}"
+        }
+   }
+    
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+]

@@ -1,0 +1,31 @@
+---
+
+- name: Copy alert rule config
+  copy:
+    src: "{{ source_config_alert_rule }}"
+    dest: "{{ dest_config_alert_rule }}"
+    mode: 0755
+  tags:
+    - alert_config
+
+- name: commnet rule_files
+  replace:
+    path: "{{dest_prometheus}}prometheus.yml"
+    regexp: '\S*rule_files:*$'
+    replace: '#rule_files:'
+  tags:
+    - alert_config
+
+
+- name: Replace config file
+  replace:
+    path: "{{dest_prometheus}}prometheus.yml"
+    regexp: '\S*# - alertmanager:9093*$'
+    replace: ' - localhost:9093\n\nrule_files:\n   - "/etc/prometheus/alert.rules"'
+  tags:
+    - alert_config
+
+- name: restart prmetheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - alert_config

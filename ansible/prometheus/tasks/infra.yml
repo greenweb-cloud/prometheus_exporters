@@ -1,0 +1,34 @@
+---
+# tasks file for prometheus
+#
+- name: scp config_monitoring to infra
+  copy:
+    src: "{{ source_node_exporter }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+  tags:
+    - infra
+    
+
+- name: run script for install node_exporter
+  shell: "{{ run_node_exporter }}"
+  tags:
+    - infra
+    
+- name: Configure node_exporter infra for prometheus
+  template:
+    src: infra.j2
+    dest: /etc/prometheus/infra.json
+    mode: 0755
+  tags:
+    - monitor_infra
+
+- name: restart node_exporter
+  shell: "systemctl restart node_exporter"
+  tags:
+    - infra
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - monitor_infra

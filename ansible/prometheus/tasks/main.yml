@@ -1,0 +1,13 @@
+---
+# tasks file for prometheus
+
+# tasks file for mysql_backup
+- include: compute.yml
+- include: haproxy.yml
+- include: nfs.yml
+- include: rabbitmq.yml
+- include: infra.yml
+- include: glance.yml
+- include: snmp_switch.yml
+- include: hpilo.yml
+- include: keepalive.yml
