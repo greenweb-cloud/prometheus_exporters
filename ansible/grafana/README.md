@@ -33,6 +33,11 @@ note: you must be set inventory
 
     - ansible-playbook -i inventory --tag grafana_import  -e 'machine=monitor' run.yml
     - ansible-playbook -i inventory --tag grafana_export  -e 'machine=monitor' run.yml
+    
+
+note: in  direcoty files  include json of popular json dasboard and you can run for alert_manager , haproxy , hpilo , mysql , rabbit , switch and same it :
+
+    - ansible-playbook -i inventory --tag grafana_export -e 'path=../files/mysql' -e 'uid=mysql.json'  -e 'machine=monitor' run.yml
 
 License
 -------
