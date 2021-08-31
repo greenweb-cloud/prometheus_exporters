@@ -11,7 +11,7 @@ must be install ansible and garafana
 Role Variables
 --------------
 
-in file defaults/main.yml you can set 
+in file defaults/main.yml you can set \
 url: "url"
 user: "user"
 password: "pass"
