@@ -12,13 +12,13 @@ Role Variables
 --------------
 
 in file defaults/main.yml you can set \
-url: "url"
-user: "user"
-password: "pass"
-org_id: 1
-uid: "uid"
-path: "path"
-grafana_api_key : "grafana_api_key"
+url: "url"  -> set url of grafana \ 
+user: "user"  \
+password: "pass" password user \
+org_id: 1   -> set org_id \
+uid: "uid" -> uid of dashboard \
+path: "path"  -> path of export or import dasbaord json file \  
+grafana_api_key : "grafana_api_key"  -> api key user \
 
 
 
@@ -31,8 +31,8 @@ Example Playbook
 for run playbook for import and export run below commad 
 note: you must be set inventory
 
-    - ansible-playbook -i inventory --tag grafana_import -e 'machine=monitor' run.yml
-    - ansible-playbook -i inventory --tag grafana_export -e 'machine=monitor' run.yml
+    - ansible-playbook -i inventory --tag grafana_import  -e 'machine=monitor' run.yml
+    - ansible-playbook -i inventory --tag grafana_export  -e 'machine=monitor' run.yml
 
 License
 -------
