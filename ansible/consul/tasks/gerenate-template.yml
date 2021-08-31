@@ -19,7 +19,7 @@
 - name: generate hp ilo config
   template:
     src: hpilo.j2
-    dest: "{{dest_config_path}}service_hpilo_exporter.json"
+    dest: "{{dest_config_path}}service_hpilo_{{hpilo_name}}_exporter.json"
     mode: 0755
   tags:
     - hpilo_consul
