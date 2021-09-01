@@ -7,12 +7,21 @@ you need to change inventory file for senario
 
 # step2
 
-```
- ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' run.yml
- ansible-playbook -i /path/to/hosts --tag compute -e 'machine=compute' run.yml 
- ansible-playbook -i /path/to/hosts --tag nfs -e 'machine=nfs' run.yaml
- ansible-playbook -i /path/to/hosts --tag glance -e 'machine=glance' run.yml
-```
+for run prometheus playbook with each service:
+
+
+    ansible-playbook -i /path/to/hosts --tag infra -e 'machine=infras' run.yml
+    ansible-playbook -i /path/to/hosts --tag compute -e 'machine=compute' run.yml 
+    ansible-playbook -i /path/to/hosts --tag nfs -e 'machine=nfs' run.yaml
+    ansible-playbook -i /path/to/hosts --tag glance -e 'machine=glance' run.yml
+    ansible-playbook -i /path/to/hosts --tag galera -e 'machine=infra' run.yml
+    ansible-playbook -i /path/to/hosts --tag haproxy -e 'machine=infra' run.yml
+    ansible-playbook -i /path/to/hosts --tag keepalived -e 'machine=infra' run.yml
+    ansible-playbook -i /path/to/hosts --tag rabbit -e 'machine=infra' run.yml
+    ansible-playbook -i /path/to/hosts --tag hpilo -e 'machine=monitor' run.yml
+    ansible-playbook -i /path/to/hosts --tag snmp -e 'machine=monitor' run.yml
+    
+
 # step3
 
 
@@ -23,4 +32,10 @@ ansible-playbook -i /path/to/hosts --tag monitor_infra -e 'machine=monitor' run.
 ansible-playbook -i /path/to/hosts --tag monitor_compute -e 'machine=monitor' run.yml
 ansible-playbook -i /path/to/hosts --tag monitor_nfs -e 'machine=monitor' run.yml
 ansible-playbook -i /path/to/hosts --tag monitor_glance -e 'machine=monitor' run.yml
+ansible-playbook -i /path/to/hosts --tag monitor_galera -e 'machine=monitor' run.yml
+ansible-playbook -i /path/to/hosts --tag monitor_haproxy -e 'machine=monitor' run.yml
+ansible-playbook -i /path/to/hosts --tag monitor_keepalived -e 'machine=monitor' run.yml
+ansible-playbook -i /path/to/hosts --tag monitor_rabbit -e 'machine=monitor' run.yml
+
+
 ```
