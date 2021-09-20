@@ -1,11 +1,10 @@
 ---
 - hosts: "{{ machine }}"
   tasks:
-
     - name: deploy prometheus service
       import_role:
         name: prometheus
-
+        
     - name: deploy alert manager service
       import_role:
         name: alertmanager
@@ -17,3 +16,4 @@
     - name: deploy consul service
       import_role:
         name: consul
+

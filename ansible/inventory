@@ -35,7 +35,8 @@ infra3.iranserver.com
 
 [monitor]
 #prometheus.iranserver.com
-prom
+
+
 
 [nfs]
 nfs.iranserver.com

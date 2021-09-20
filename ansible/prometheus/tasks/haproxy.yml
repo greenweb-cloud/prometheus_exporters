@@ -10,12 +10,15 @@
     - haproxy
     - template_haproxy
 
+
 - name: "Append haproxy.cfg with content of temporary file"
   shell: cat conf.d/monitoring >> haproxy.cfg
   args:
     chdir: "/etc/haproxy/"
   tags:
     - haproxy
+
+
 
 - name: reload haproxy
   shell: "systemctl reload haproxy"
@@ -45,7 +48,10 @@
     dest: "{{template_path}}haproxy.json"
     mode: 0755
   tags:
+
     - monitor_haproxy
+    - haproxy_config
+
 
 
 - name: restart haproxy_exporter
@@ -57,4 +63,6 @@
   shell: "systemctl restart prometheus"
   tags:
     - monitor_haproxy
+    - haproxy_config
+
 
