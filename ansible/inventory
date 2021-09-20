@@ -34,7 +34,9 @@ infra2.iranserver.com
 infra3.iranserver.com
 
 [monitor]
-prometheus.iranserver.com
+#prometheus.iranserver.com
+
+
 
 [nfs]
 nfs.iranserver.com

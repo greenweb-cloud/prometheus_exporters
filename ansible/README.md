@@ -1,3 +1,4 @@
+
 # prometheus_config
 Ansible playbooks and roles to automate install prometheus and another exporter  
 
@@ -24,3 +25,4 @@ ansible-playbook -i /path/to/hosts --tag monitor_compute -e 'machine=monitor' ru
 ansible-playbook -i /path/to/hosts --tag monitor_nfs -e 'machine=monitor' run.yml
 ansible-playbook -i /path/to/hosts --tag monitor_glance -e 'machine=monitor' run.yml
 ```
+

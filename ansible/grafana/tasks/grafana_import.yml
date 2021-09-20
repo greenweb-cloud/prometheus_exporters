@@ -1,0 +1,11 @@
+---
+- name: Import dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: "{{url}}"
+    grafana_api_key: "{{ grafana_api_key }}"
+    state: present
+    commit_message: Updated by ansible
+    overwrite: yes
+    path: "{{path}}{{uid}}.json"
+  tags:
+    - grafana_import
