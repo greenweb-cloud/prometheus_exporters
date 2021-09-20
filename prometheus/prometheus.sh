@@ -47,8 +47,9 @@ ExecStart=/usr/local/bin/prometheus \
     --storage.tsdb.path /var/lib/prometheus/ \
     --storage.tsdb.retention=150d \
     --web.console.templates=/etc/prometheus/consoles \
-    --web.console.libraries=/etc/prometheus/console_libraries
-
+    --web.console.libraries=/etc/prometheus/console_libraries \
+    --web.enable-lifecycle
+ExecReload=/bin/kill -HUP $MAINPID
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/prometheus.service
 
