@@ -27,7 +27,7 @@
   tags:
     - compute
 
-- name: restart prometheus
+- name: reload prometheus
   shell: "systemctl reload prometheus"
   tags:
     - monitor_compute
