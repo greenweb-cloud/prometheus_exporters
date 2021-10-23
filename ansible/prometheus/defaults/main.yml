@@ -13,7 +13,7 @@ template_path : "/etc/prometheus/conf.d/"
 
 
 #node expoter
-node_expoter: "node-exporter"
+node_exporter: "node-exporter"
 source_node_exporter: "{{source_path}}{{node_exporter}}.sh"
 run_node_exporter: "{{dest_path}}{{node_exporter}}.sh"
 
