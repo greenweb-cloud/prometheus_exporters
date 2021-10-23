@@ -1,5 +1,8 @@
 ---
 - hosts: "{{ machine }}"
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: deploy prometheus service
       import_role:
