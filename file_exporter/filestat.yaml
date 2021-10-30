@@ -1,0 +1,21 @@
+exporter:
+  #! Working directory of exporter
+  working_directory: "/etc"
+
+  #! Network parameters
+  #listen_address: ':9943'
+  #metrics_path: /metrics
+
+  #! Uncomment one of the following to enable default config
+  enable_crc32_metric: true
+  #enable_nb_line_metric: true
+
+  # list of patterns to apply
+  files:
+     - patterns: ['*']
+     # enable_crc32_metric: true
+     # enable_nb_line_metric: true
+     
+     # Patterns can be recursive - be careful of infinite loop in some cases
+     # - patterns: ['**/*.go']
+
