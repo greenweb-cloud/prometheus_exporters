@@ -12,11 +12,11 @@
       import_role:
         name: alertmanager
 
-    - name: deploy grafana service
-      import_role:
-        name: grafana
+#    - name: deploy grafana service
+#      import_role:
+#        name: grafana
 
-    - name: deploy consul service
-      import_role:
-        name: consul
+#    - name: deploy consul service
+#      import_role:
+#        name: consul
 

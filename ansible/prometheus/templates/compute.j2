@@ -3,7 +3,7 @@
    {% set value = item.split('.') %}
    {
         "targets": [
-            "{{ item }}"
+            "{{ item }}:{{node_exporter_port}}"
         ],
         "labels": {
             "compute": "{{ value[0] }}"
