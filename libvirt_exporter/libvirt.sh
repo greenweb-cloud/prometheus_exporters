@@ -1,4 +1,5 @@
 #!/bin/bash
+wget https://github.com/srkaviani/prometheus_exporters/raw/main/libvirt_exporter/prometheus-libvirt-exporter
 cp prometheus-libvirt-exporter /usr/local/bin
 
 # create user
