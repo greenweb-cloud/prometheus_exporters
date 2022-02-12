@@ -1,0 +1,14 @@
+version: '2'
+services:
+  vmware_exporter:
+    # Using the latest tag, but you can use vers(v0.9.5 for example
+    image: soroush7339/vmware_exporter:latest
+    ports:
+        - "9272:9272"
+    environment:
+        VSPHERE_IGNORE_SSL: "True"
+    volumes:
+        - /opt/prometheus/vmware_exporter/config.yml:/opt/vmware_exporter/config.yml
+    restart: always
+    #FOR DEBUG UNCOMMENT NEXT LINE
+    #command: ["-l","DEBUG"]
