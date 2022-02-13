@@ -6,6 +6,7 @@ cp prometheus-libvirt-exporter /usr/local/bin
 useradd --no-create-home --shell /bin/false prometheus-libvirt-exporter
 
 chown prometheus-libvirt-exporter:prometheus-libvirt-exporter /usr/local/bin/prometheus-libvirt-exporter
+chmod 755 /usr/local/bin/prometheus-libvirt-exporter
 
 echo '[Unit]
 Description=Libvirt Exporter
