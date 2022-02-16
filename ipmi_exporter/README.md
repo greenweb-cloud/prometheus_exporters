@@ -18,7 +18,7 @@
     job: ipmi_exporter
 ```
 
-5. Add to Prometheus.yml these lines:
+4. Add to Prometheus.yml these lines:
 ```
 
 - job_name: ipmi_exporter
@@ -51,4 +51,4 @@
     replacement: localhost:9290
     action: replace
 ```
-6. Reload Your Prometheus
+5. Reload Your Prometheus
