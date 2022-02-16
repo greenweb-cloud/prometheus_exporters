@@ -21,34 +21,36 @@
 4. Add to Prometheus.yml these lines:
 ```
 
-- job_name: ipmi_exporter
-  params:
-    module: ['default']
-  scrape_interval: 1m
-  scrape_timeout: 30s
-  metrics_path: /ipmi
-  scheme: http
-  file_sd_configs:
-  - files:
-    - /etc/prometheus/ipmi_targets.yml
-    refresh_interval: 5m
-  relabel_configs:
-  - source_labels: [__address__]
-    separator: ;
-    regex: (.*)
-    target_label: __param_target
-    replacement: ${1}
-    action: replace
-  - source_labels: [__param_target]
-    separator: ;
-    regex: (.*)
-    target_label: instance
-    replacement: ${1}
-    action: replace
-  - separator: ;
-    regex: .*
-    target_label: __address__
-    replacement: localhost:9290
-    action: replace
+  - job_name: ipmi_exporter
+    params:
+      module: ['default']
+    scrape_interval: 1m
+    scrape_timeout: 30s
+    metrics_path: /ipmi
+    scheme: http
+    file_sd_configs:
+    - files:
+      - /etc/prometheus/ipmi_targets.yml
+      refresh_interval: 5m
+    relabel_configs:
+    - source_labels: [__address__]
+      separator: ;
+      regex: (.*)
+      target_label: __param_target
+      replacement: ${1}
+      action: replace
+    - source_labels: [__param_target]
+      separator: ;
+      regex: (.*)
+      target_label: instance
+      replacement: ${1}
+      action: replace
+    - separator: ;
+      regex: .*
+      target_label: __address__
+      replacement: localhost:9290
+      action: replace
+
+
 ```
 5. Reload Your Prometheus
