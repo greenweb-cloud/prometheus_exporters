@@ -57,4 +57,5 @@
 5. Reload Your Prometheus
 6. Import IPMI Exporter-1644991675698.json Dashboard to Grafana.
 
+![11](https://user-images.githubusercontent.com/90821955/154206640-29c93aea-ffa8-450c-9f2a-341c7bd6b2ff.PNG)
 
