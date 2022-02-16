@@ -1,4 +1,5 @@
 # How to Use
+ Install This Exporter Side of your Prometheus Server:
 1. Copy File ipmi_remote.yml to /opt/ipmi_exporter/ipmi_remote.yml and change the username and password in default module to yours.
 2. bash install_ipmi_exporter.sh
 3. Create File /etc/prometheus/ipmi_targets.yml and define your targets in it:
