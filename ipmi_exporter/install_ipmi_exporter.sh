@@ -29,5 +29,4 @@ systemctl daemon-reload
 systemctl start ipmi_exporter
 systemctl enable ipmi_exporter
 
-echo "Setup complete.
-Add to Prometheus By Readme .
+echo "Setup complete. Add to Prometheus By Readme ."
