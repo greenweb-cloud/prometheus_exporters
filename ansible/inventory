@@ -16,7 +16,7 @@
 #compute12.iranserver.com
 #compute13.iranserver.com
 #compute14.iranserver.com
-compute15.iranserver.com
+#compute15.iranserver.com
 #compute16.iranserver.com
 #compute17.iranserver.com
 #compute18.iranserver.com
@@ -27,6 +27,42 @@ compute15.iranserver.com
 #compute23.iranserver.com
 #compute24.iranserver.com
 #compute25.iranserver.com
+"compute1.afranet"
+"compute2.afranet"
+"compute3.afranet"
+"compute4.afranet"
+"compute5.afranet"
+"compute6.afranet"
+"compute7.afranet"
+"compute8.afranet"
+"compute9.afranet"
+"compute10.afranet"
+"compute11.afranet"
+"compute12.afranet"
+"compute13.afranet"
+"compute14.afranet"
+"compute15.afranet"
+"compute16.afranet"
+"compute17.afranet"
+"compute18.afranet"
+"compute19.afranet"
+"compute20.afranet"
+"compute21.afranet"
+"compute22.afranet"
+"compute23.afranet"
+"compute24.afranet"
+"compute25.afranet"
+"compute26.afranet"
+"compute27.afranet"
+"compute28.afranet"
+"compute29.afranet"
+"compute30.afranet"
+"compute31.afranet"
+"compute32.afranet"
+"compute33.afranet"
+"compute34.afranet"
+
+
 
 [infra]
 infra1.iranserver.com
@@ -35,6 +71,8 @@ infra3.iranserver.com
 
 [monitor]
 prometheus.iranserver.com
+
+
 
 [nfs]
 nfs.iranserver.com
@@ -55,3 +93,7 @@ galera1.iranserver.com
 galera2.iranserver.com
 galera3.iranserver.com
 
+
+
+[test]
+compute1.afranet

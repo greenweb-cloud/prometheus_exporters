@@ -8,3 +8,7 @@
     state: export
     uid: "{{uid}}"
     path: "{{path}}{{uid}}.json"
+
+  tags:
+    - grafana_export
+

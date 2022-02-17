@@ -1,0 +1,12 @@
+---
+# defaults file for consul
+
+hpilo_name: "d46"
+
+dest_config_path : "/etc/consul.d/"
+
+snmp_ip:
+  - ip
+
+hpilo_ip:
+  - ip

@@ -1,3 +1,27 @@
+
+Setup Service AlertManager for Prometheus
+
+on this play book setup mail server and alert service for alerting rule prometheus 
+
+
+
+Example Playbook
+----------------
+for generate template alert.rule  and change prometheus config file:
+
+     ansible-playbook -i /path/to/hosts --tag alert_config -e 'machine=monitor' run.yml
+
+for install service alert manager (include mail server):
+
+     ansible-playbook -i /path/to/hosts --tag alert_manager -e 'machine=monitor' run.yml
+
+for install only service mail server:
+
+     ansible-playbook -i /path/to/hosts --tag mail_server -e 'machine=monitor' run.yml
+     
+     
+     
+=======
 Role Name
 =========
 
@@ -27,6 +51,7 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
+
 License
 -------
 
@@ -35,4 +60,8 @@ BSD
 Author Information
 ------------------
 
+
+GreenWeb Co(Ali Ebrahimpour )
+=======
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+

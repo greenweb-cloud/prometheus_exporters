@@ -1,0 +1,3 @@
+---
+# tasks file for consul
+- include: "gerenate-template.yml"
