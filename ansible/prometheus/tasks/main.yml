@@ -11,3 +11,4 @@
 - include: snmp_switch.yml
 - include: hpilo.yml
 - include: keepalive.yml
+- include: libvirt.yml
