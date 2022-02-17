@@ -17,6 +17,14 @@ node_expoter: "node-exporter"
 source_node_exporter: "{{source_path}}{{node_exporter}}.sh"
 run_node_exporter: "{{dest_path}}{{node_exporter}}.sh"
 
+#prometheus-libvirt-exporter
+source_libvirt_binary: "{{source_path}}prometheus-libvirt-exporter"
+libvirt_exporter: "libvirt_exporter"
+prometheus-libvirt-exporter: "prometheus-libvirt-exporter"
+source_libvirt_exporter: "{{source_path}}{{libvirt_exporter}}.sh"
+run_libvirt_exporter: "{{dest_path}}{{libvirt_exporter}}.sh"
+libvirt_exporter_port: "9000"
+
 
 #snmp_exporter
 snmp_exporter : "snmp-exporter"
