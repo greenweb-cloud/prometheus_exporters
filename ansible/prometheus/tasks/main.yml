@@ -12,3 +12,5 @@
 - include: hpilo.yml
 - include: keepalive.yml
 - include: file.yml
+- include: libvirt.yml
+

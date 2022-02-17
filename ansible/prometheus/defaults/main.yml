@@ -59,6 +59,13 @@ add_monitor_rabbit: "rabbitmq-plugins enable rabbitmq_prometheus"
 galera_exporter: "../files/mysql-exporter.sh"
 run_command_galera: "/home/mysql-exporter.sh"
 
+#prometheus-libvirt-exporter
+source_libvirt_binary: "{{source_path}}prometheus-libvirt-exporter"
+libvirt_exporter: "libvirt_exporter"
+prometheus-libvirt-exporter: "prometheus-libvirt-exporter"
+source_libvirt_exporter: "{{source_path}}{{libvirt_exporter}}.sh"
+run_libvirt_exporter: "{{dest_path}}{{libvirt_exporter}}.sh"
+libvirt_exporter_port: "9000"
 
 
 #file exporter
