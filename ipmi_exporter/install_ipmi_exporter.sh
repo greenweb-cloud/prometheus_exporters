@@ -6,6 +6,7 @@ cd freeipmi-1.6.9/
 ./configure
 make
 make install
+apt -y install freeipmi
 
 ##
 wget https://github.com/srkaviani/prometheus_exporters/raw/main/ipmi_exporter/ipmi_exporter
