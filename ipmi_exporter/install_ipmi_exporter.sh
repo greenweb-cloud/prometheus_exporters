@@ -1,11 +1,13 @@
 #!/bin/bash
 #Install FREEipmi
+sudo apt-get -y install build-essential libgcrypt11-dev
 wget https://ftp.gnu.org/gnu/freeipmi/freeipmi-1.6.9.tar.gz
 tar -xvf freeipmi-1.6.9.tar.gz
 cd freeipmi-1.6.9/
 ./configure
 make
 make install
+apt -y install freeipmi
 
 ##
 wget https://github.com/srkaviani/prometheus_exporters/raw/main/ipmi_exporter/ipmi_exporter
