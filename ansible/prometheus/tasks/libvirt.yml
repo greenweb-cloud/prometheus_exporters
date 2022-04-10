@@ -40,4 +40,3 @@
   shell: "systemctl reload prometheus"
   tags:
     - monitor_libvirt
-
