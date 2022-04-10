@@ -34,7 +34,7 @@
 - name: restart libvirt
   shell: "systemctl restart prometheus-libvirt-exporter"
   tags:
-    - compute
+    - libvirt
 
 - name: reload prometheus
   shell: "systemctl reload prometheus"
