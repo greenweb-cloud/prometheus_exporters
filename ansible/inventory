@@ -1,6 +1,12 @@
 [reconfigure]
 127.0.0.1
 
+[testGroup]
+ali
+
+[monitoring]
+ali
+
 [compute]
 #compute1.iranserver.com
 #compute2.iranserver.com
