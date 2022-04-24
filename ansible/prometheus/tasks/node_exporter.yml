@@ -22,3 +22,14 @@
   tags:
     - node_exporter
 
+
+- name: generate json config for prometheus
+  when: inventory_hostname in groups['monitoring']
+  template:
+    src: node.j2
+    dest: /etc/prometheus/conf.d/node.json
+    mode: 0755
+  tags:
+    - node_exporter
+    - test
+
