@@ -38,4 +38,3 @@ Add the following lines to /etc/prometheus/prometheus.yml:
     static_configs:
       - targets: ['localhost:9100']
 "
-
