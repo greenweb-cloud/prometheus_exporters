@@ -17,6 +17,7 @@ ExecStart=/usr/local/bin/node_exporter --collector.textfile.directory /var/lib/n
 WantedBy=multi-user.target
 ' > /etc/systemd/system/node_exporter.service
 
+echo '*/1 * * * * root /usr/local/bin/smartmon.sh > /var/lib/node_exporter/textfile_collector/smart_metrics.prom' >> /etc/crontab
 # enable node_exporter in systemctl
 systemctl daemon-reload
 systemctl restart node_exporter
