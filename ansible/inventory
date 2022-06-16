@@ -1,11 +1,7 @@
 [reconfigure]
 127.0.0.1
 
-[testGroup]
-ali
 
-[monitoring]
-ali
 
 [compute]
 #compute1.iranserver.com
@@ -100,6 +96,3 @@ galera2.iranserver.com
 galera3.iranserver.com
 
 
-
-[test]
-compute28

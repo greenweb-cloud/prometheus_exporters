@@ -11,6 +11,11 @@ useradd --no-create-home --shell /bin/false mysqld_exporter
 
 chown mysqld_exporter:mysqld_exporter /usr/local/bin/mysqld_exporter
 
+mkdir -p /home/mysqld_exporter
+cp /root/.my.cnf /home/mysqld_exporter/
+chown -R mysqld_exporter:mysqld_exporter /home/mysqld_exporter
+
+
 echo '[Unit]
 Description=Node Exporter
 Wants=network-online.target
