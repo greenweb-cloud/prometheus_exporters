@@ -8,7 +8,7 @@ cp node_exporter /usr/local/bin
 # create user
 useradd --no-create-home --shell /bin/false node_exporter
 
-chown node_exporter:node_exporter /usr/local/bin/node_exporter
+chown node_exporter:node_exporter /usr/local/bin/node_exporter --collector.systemd
 
 echo '[Unit]
 Description=Node Exporter
