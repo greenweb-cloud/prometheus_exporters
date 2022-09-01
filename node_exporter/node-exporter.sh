@@ -8,7 +8,7 @@ cp node_exporter /usr/local/bin
 # create user
 useradd --no-create-home --shell /bin/false node_exporter
 
-chown node_exporter:node_exporter /usr/local/bin/node_exporter --collector.systemd
+chown node_exporter:node_exporter /usr/local/bin/node_exporter
 
 echo '[Unit]
 Description=Node Exporter
@@ -19,7 +19,7 @@ After=network-online.target
 User=node_exporter
 Group=node_exporter
 Type=simple
-ExecStart=/usr/local/bin/node_exporter
+ExecStart=/usr/local/bin/node_exporter  --collector.systemd
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/node_exporter.service
