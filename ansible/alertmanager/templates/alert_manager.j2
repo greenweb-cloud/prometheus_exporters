@@ -1,0 +1,63 @@
+global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'monitor@greenweb.ir'
+  smtp_auth_username: ''
+  smtp_auth_password: ''
+  smtp_require_tls: false
+
+
+route:
+  receiver: 'cloud-team'
+  repeat_interval: 100h
+
+  routes:
+  - match_re:
+      service: (cloud-team)
+    receiver: cloud-team
+
+  - match_re:
+      service: (network-team)
+    receiver: network-team
+
+  - match_re:
+      service: (hardware-team)
+    receiver: hardware-team
+
+
+receivers:
+- name: 'cloud-team'
+  webhook_configs:
+      - send_resolved: false
+        url: "https://chat.greenweb.ir/hooks/BNSq9S6wYExNecCz4/mdKQ5ABCTp4sz6fzz6ygzttNQDqfc2ocKBRqPNkKYdTQj9Ma"
+  email_configs:
+  - to: 'monitor@greenweb.ir'
+    headers:
+      subject: 'cloud-team'
+      To: 'monitor@greenweb.ir'
+      CC: 'r.bojnordi@iranserver.com'
+  pagerduty_configs:
+  - routing_key: 'cloud-team'
+
+
+- name: 'network-team'
+  email_configs:
+  - to: 'monitor@greenweb.ir'
+    headers:
+      subject: 'network-team'
+      To: 'monitor@greenweb.ir'
+      CC: 'p.mohammadi@iranserver.com'
+  pagerduty_configs:
+  - routing_key: 'network-team'
+
+
+- name: 'hardware-team'
+  email_configs:
+  - to: 'monitor@greenweb.ir'
+    headers:
+      subject: 'hardware-team'
+      To: 'monitor@greenweb.ir,'
+      CC: 'm.monfared@greenweb.ir'
+  pagerduty_configs:
+  - routing_key: 'hardware-team'
+
+

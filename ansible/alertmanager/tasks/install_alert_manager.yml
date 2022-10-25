@@ -1,0 +1,29 @@
+---
+
+- name: scp config alert manager
+  copy:
+    src: "{{ source_alert_manger }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+  tags:
+    - alert_manager
+
+
+- name: run script for install alert manager
+  shell: "{{ run_alert_manager  }}"
+  tags:
+    - alert_manager
+
+- name: Copy alert manager config
+  template:
+    src: alert_manager.j2
+    dest: "{{dest_config_path}}alertmanager.yml"
+    mode: 0755
+  tags:
+    - alert_manager
+
+
+- name: restart alert manager
+  shell: "systemctl restart alertmanager"
+  tags:
+    - alert_manager

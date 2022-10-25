@@ -1,0 +1,15 @@
+{ "services":[
+{% for item in hpilo_ip %} 
+   {
+        "name": "hpilo - {{ item }}",
+        "tags": [
+            "hpilo:{{ item }}",
+            "hpilo_conul"
+        ]
+    }
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+  ]
+}

@@ -1,0 +1,42 @@
+---
+# tasks file for prometheus
+#
+- name: scp config_monitoring to computs
+  copy:
+    src: "{{ source_libvirt_exporter }}"
+    dest: "{{ dest_path  }}"
+    mode: 0755
+  tags:
+    - libvirt
+
+- name: scp binary_file to computs
+  copy:
+    src: "{{ source_libvirt_binary }}"
+    dest: "{{ dest_path  }}"
+    mode: 0755
+  tags:
+    - libvirt
+
+
+- name: run script for install libvirt_exporter
+  shell: "{{ run_libvirt_exporter }}"
+  tags:
+    - libvirt
+
+- name: Configure libvirt_exporter compute for prometheus
+  template:
+    src: libvirt.j2
+    dest: /etc/prometheus/libvirt.json
+    mode: 0755
+  tags:
+    - monitor_libvirt
+
+- name: restart libvirt
+  shell: "systemctl restart prometheus-libvirt-exporter"
+  tags:
+    - libvirt
+
+- name: reload prometheus
+  shell: "systemctl reload prometheus"
+  tags:
+    - monitor_libvirt

@@ -1,0 +1,25 @@
+---
+# defaults file for alertmanager
+network_region: "SW.beh.greenweb.local"
+hardware_region: "HW.beh.greenweb.local"
+openstack_region: "OpenStack.beh.greenweb.local"
+
+dest_path: "/home/"
+source_path: "../files/"
+dest_config_path : "/etc/alertmanager/"
+dest_prometheus: "/etc/prometheus/"
+
+#mailserver
+mail_server : "install-mailserver"
+source_mail_server: "{{source_path}}{{mail_server}}.sh"
+run_mail_server: "{{dest_path}}{{mail_server}}.sh"
+
+#alertmanager
+alert_manager : "install-alertmanager"
+source_alert_manger: "{{source_path}}{{alert_manager}}.sh"
+run_alert_manager: "{{dest_path}}{{alert_manager}}.sh"
+
+
+#alert rulte
+source_config_alert_rule : "{{source_path}}alert.rules"
+dest_config_alert_rule : "/etc/prometheus/"

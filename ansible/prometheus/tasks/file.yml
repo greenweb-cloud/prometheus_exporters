@@ -1,0 +1,50 @@
+---
+# tasks file for prometheus
+#
+- name: Synchronize config file exporter to client
+
+  copy:
+    src: "filestat/{{ item }}"
+    dest: "{{ dest_path  }}"
+    mode: 0755
+  with_items: "{{ source_file_exporter  }}"
+  tags:
+    - compute
+    - infra
+    - file_exporter
+
+
+- name: run script for install file_exporter
+  become_user: root
+  shell: "{{ run_file_exporter }}"
+  tags:
+    - compute
+    - infra
+    - file_exporter
+    
+
+- name: Configure file_exporter generate node  for prometheus
+  template:
+    src: file.j2
+    dest: /etc/prometheus/file_exporter.json
+    mode: 0755
+  tags:
+    - monitor_compute
+    - monitor_infra
+    - monitor_file
+
+
+- name: restart file exporter
+  shell: "systemctl restart filestat_exporter"
+  tags:
+    - compute
+    - infra
+    - file_exporter
+
+
+- name: reload prometheus
+  shell: "systemctl reload prometheus"
+  tags:
+    - monitor_compute
+    - monitor_infra
+    - monitor_file

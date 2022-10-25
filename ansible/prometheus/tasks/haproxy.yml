@@ -1,2 +1,68 @@
 ---
-# tasks file for prometheus
+
+#tasks file for haproxy exporter
+
+- name: Create haproxy service config files
+  template:
+    src: haproxy_config.j2
+    dest: "/etc/haproxy/conf.d/monitoring"
+  tags:
+    - haproxy
+    - template_haproxy
+
+
+- name: "Append haproxy.cfg with content of temporary file"
+  shell: cat conf.d/monitoring >> haproxy.cfg
+  args:
+    chdir: "/etc/haproxy/"
+  tags:
+    - haproxy
+
+
+
+- name: reload haproxy
+  shell: "systemctl reload haproxy"
+  tags:
+    - haproxy
+
+
+
+- name: scp config_monitoring haproxy exporter
+  copy:
+    src: "{{ source_haproxy_exporter }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+#  when: not haproxy_status.stat.exists
+  tags:
+    - haproxy
+   
+
+- name: run script for install haproxy exporter
+  shell: "{{ run_haproxy_exporter  }}"
+  tags:
+    - haproxy
+    
+- name: Copy haproxy_exporter target switch for prometheus
+  template:
+    src: haproxy.j2
+    dest: "{{template_path}}haproxy.json"
+    mode: 0755
+  tags:
+
+    - monitor_haproxy
+    - haproxy_config
+
+
+
+- name: restart haproxy_exporter
+  shell: "systemctl restart haproxy_exporter"
+  tags:
+    - haproxy
+
+- name: restart prometheus
+  shell: "systemctl restart prometheus"
+  tags:
+    - monitor_haproxy
+    - haproxy_config
+
+

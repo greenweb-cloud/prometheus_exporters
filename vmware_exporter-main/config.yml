@@ -1,0 +1,32 @@
+default:
+    vsphere_host: 192.168.1.100 #IP OR Hostname of Esxi or vcenter
+    vsphere_user: 'root' #username of ESXI or vcenter
+    vsphere_password: 'password' #password of ESXI or vcenter
+    ignore_ssl: True
+    specs_size: 5000
+    fetch_custom_attributes: True
+    fetch_tags: True
+    fetch_alarms: True
+    collect_only:
+        vms: True
+        vmguests: True
+        datastores: True
+        hosts: True
+        snapshots: True
+example2:
+    vsphere_host: 192.168.1.101 #IP OR Hostname of Esxi or vcenter
+    vsphere_user: 'root' #username of ESXI or vcenter
+    vsphere_password: 'password' #password of ESXI or vcenter
+    ignore_ssl: True
+    specs_size: 5000
+    fetch_custom_attributes: True
+    fetch_tags: True
+    fetch_alarms: True
+    collect_only:
+        vms: True
+        vmguests: True
+        datastores: True
+        hosts: True
+        snapshots: True        
+        
+#You Can add more sections For Other Targets. (default section is necessary)

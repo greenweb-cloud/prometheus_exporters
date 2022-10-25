@@ -1,0 +1,14 @@
+---
+- name: Export dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: "{{url}}"
+    grafana_user: "{{user}}"
+    grafana_password: "{{password}}"
+    org_id: "{{org_id}}"
+    state: export
+    uid: "{{uid}}"
+    path: "{{path}}{{uid}}.json"
+
+  tags:
+    - grafana_export
+

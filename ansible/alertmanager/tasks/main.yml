@@ -1,0 +1,5 @@
+---
+# tasks file for alertmanager
+- include: "install_mail_server.yml"
+- include: "install_alert_manager.yml"
+- include: "config_alert_rule.yml"

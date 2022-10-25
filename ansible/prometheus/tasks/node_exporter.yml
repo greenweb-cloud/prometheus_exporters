@@ -1,0 +1,35 @@
+---
+# tasks file for node exporter generate by ansible
+#
+- name: copy script node exporter to destinition host
+  when: inventory_hostname in groups['testGroup']
+  copy:
+    src: "{{ source_node_exporter }}"
+    dest: "{{ dest_path  }}"
+    mode: 0755
+  tags:
+    - node_exporter
+    
+- name: run script for install node exporter
+  when: inventory_hostname in groups['testGroup']
+  shell: "{{ run_node_exporter }}"
+  tags:
+    - node_exporter
+    
+- name: restart node_exporter
+  when: inventory_hostname in groups['testGroup']
+  shell: "systemctl restart node_exporter"
+  tags:
+    - node_exporter
+
+
+- name: generate json config for prometheus
+  when: inventory_hostname in groups['monitoring']
+  template:
+    src: node.j2
+    dest: /etc/prometheus/conf.d/node.json
+    mode: 0755
+  tags:
+    - node_exporter
+    - test
+

@@ -1,36 +1,144 @@
 ---
+# Copyright 2021 , GreenWeb Co
+# Licensed under the Apache License, Version 2.0 (the "License");
+ 
 # defaults file for prometheus
-#exporter: "/opt/prometheus_exporters/ansible/prometheus/files/exporter"
-#exporter: "/opt/prometheus_exporters/node_exporter/node-exporter.sh"
-exporter: "../files/node-exporter.sh"
-exporter_pass: "/home/"
-run_command: "/home/node-exporter.sh"
+
+#general
+debug: False
+dest_path: "/home/"
+source_path: "../files/"
+template_path : "/etc/prometheus/conf.d/"
+
+
+
+#node expoter
+node_exporter: "node-exporter"
+source_node_exporter: "{{source_path}}{{node_exporter}}.sh"
+run_node_exporter: "{{dest_path}}{{node_exporter}}.sh"
+node_exporter_port: "9100"
+
+#snmp_exporter
+snmp_exporter : "snmp-exporter"
+source_snmp_exporter: "{{source_path}}{{snmp_exporter}}.sh"
+run_snmp_exporter: "{{dest_path}}{{snmp_exporter}}.sh"
+
+#haproxy_exporter
+haproxy_exporter : "haproxy-exporter"
+source_haproxy_exporter: "{{source_path}}{{haproxy_exporter}}.sh"
+run_haproxy_exporter: "{{dest_path}}{{haproxy_exporter}}.sh"
+
+
+#keepalive_exporter
+keepalived_exporter : "keepalived-exporter"
+source_keepalived_exporter: "{{source_path}}{{keepalived_exporter}}.sh"
+run_keepalived_exporter: "{{dest_path}}{{keepalived_exporter}}.sh"
+
+
+#icmp_exporter
+#icmp_exporter: "../files/snmp-exporter.sh"
+#run_command: "/home/snmp-exporter.sh"
+
+
+#hp ilo_exporter
+pkgs_install: ['python-pip']
+hpilo_exporter : "hpilo-exporter"
+source_hpilo_exporter : "{{source_path}}{{hpilo_exporter}}.sh"
+run_hpilo_exporter : "{{dest_path}}{{hpilo_exporter}}.sh"
+
+
+#blaccbox_exporter
+#blaccbox_exporter: "../files/blackbox-exporter.sh"
+#run_command: "/home/blackbox-exporter.sh"
+
+
+#rabbitmq
+add_monitor_rabbit: "rabbitmq-plugins enable rabbitmq_prometheus"
+
+#galera exporter
+galera_exporter: "../files/mysql-exporter.sh"
+run_command_galera: "/home/mysql-exporter.sh"
+
+#prometheus-libvirt-exporter
+source_libvirt_binary: "{{source_path}}prometheus-libvirt-exporter"
+libvirt_exporter: "libvirt_exporter"
+prometheus-libvirt-exporter: "prometheus-libvirt-exporter"
+source_libvirt_exporter: "{{source_path}}{{libvirt_exporter}}.sh"
+run_libvirt_exporter: "{{dest_path}}{{libvirt_exporter}}.sh"
+libvirt_exporter_port: "9000"
+
+
+#file exporter
+source_file_exporter: ['filestat_exporter','filestat.yaml','install_file_exporter.sh']
+run_file_exporter: "/home/install_file_exporter.sh"
+file_exporter_port: "9943"
+
+
+
+#-------------------------------------- hosts -------------------------------------------------
+
 compute_ip:
-  - "compute1.iranserver.com:9100"
-  - "compute2.iranserver.com:9100"
-  - "compute3.iranserver.com:9100"
-  - "compute4.iranserver.com:9100"
-  - "compute5.iranserver.com:9100"
-  - "compute6.iranserver.com:9100"
-  - "compute7.iranserver.com:9100"
-  - "compute8.iranserver.com:9100"
-  - "compute9.iranserver.com:9100"
-  - "compute10.iranserver.com:9100"
-  - "compute11.iranserver.com:9100"
-  - "compute12.iranserver.com:9100"
-  - "compute13.iranserver.com:9100"
-  - "compute14.iranserver.com:9100"
-  - "compute15.iranserver.com:9100"
-  - "compute16.iranserver.com:9100"
-  - "compute17.iranserver.com:9100"
-  - "compute18.iranserver.com:9100"
-  - "compute19.iranserver.com:9100"
-  - "compute20.iranserver.com:9100"
-  - "compute21.iranserver.com:9100"
-  - "compute22.iranserver.com:9100"
-  - "compute23.iranserver.com:9100"
-  - "compute24.iranserver.com:9100"
-  - "compute25.iranserver.com:9100"
+  - "compute1.afranet"
+  - "compute2.afranet"
+  - "compute3.afranet"
+  - "compute4.afranet"
+  - "compute5.afranet"
+  - "compute6.afranet"
+  - "compute7.afranet"
+  - "compute8.afranet"
+  - "compute9.afranet"
+  - "compute10.afranet"
+  - "compute11.afranet"
+  - "compute12.afranet"
+  - "compute13.afranet"
+  - "compute14.afranet"
+  - "compute15.afranet"
+  - "compute16.afranet"
+  - "compute17.afranet"
+  - "compute18.afranet"
+  - "compute19.afranet"
+  - "compute20.afranet"
+  - "compute21.afranet"
+  - "compute22.afranet"
+  - "compute23.afranet"
+  - "compute24.afranet"
+  - "compute25.afranet"
+  - "compute26.afranet"
+  - "compute27.afranet"
+  - "compute28.afranet"
+  - "compute29.afranet"
+  - "compute30.afranet"
+  - "compute31.afranet"
+  - "compute32.afranet"
+  - "compute33.afranet"
+  - "compute34.afranet"
+
+#compute_ip:
+#  - "compute1.iranserver.com:9100"
+#  - "compute2.iranserver.com:9100"
+#  - "compute3.iranserver.com:9100"
+#  - "compute4.iranserver.com:9100"
+#  - "compute5.iranserver.com:9100"
+#  - "compute6.iranserver.com:9100"
+#  - "compute7.iranserver.com:9100"
+#  - "compute8.iranserver.com:9100"
+#  - "compute9.iranserver.com:9100"
+#  - "compute10.iranserver.com:9100"
+#  - "compute11.iranserver.com:9100"
+#  - "compute12.iranserver.com:9100"
+#  - "compute13.iranserver.com:9100"
+#  - "compute14.iranserver.com:9100"
+#  - "compute15.iranserver.com:9100"
+#  - "compute16.iranserver.com:9100"
+#  - "compute17.iranserver.com:9100"
+#  - "compute18.iranserver.com:9100"
+#  - "compute19.iranserver.com:9100"
+#  - "compute20.iranserver.com:9100"
+#  - "compute21.iranserver.com:9100"
+#  - "compute22.iranserver.com:9100"
+#  - "compute23.iranserver.com:9100"
+#  - "compute24.iranserver.com:9100"
+#  - "compute25.iranserver.com:9100"
 
 infra_ip:
   - "infra1.iranserver.com:9100"
@@ -45,4 +153,58 @@ glance_ip:
   - "glance3.iranserver.com:9100"
 
 
+snmp_ip:
+  - "sw-00312.iranserver.com"
+  - "sw-00313.iranserver.com"
+  - "sw-00314.iranserver.com"
+  - "sw-00315.iranserver.com"  
 
+haproxy_ip:
+  - "infra1.iranserver.com:9101"
+  - "infra2.iranserver.com:9101"
+  - "infra3.iranserver.com:9101"
+
+
+rabbitmq_ip:
+  - "rabbitmq1.iranserver.com:15692"
+  - "rabbitmq2.iranserver.com:15692"
+  - "rabbitmq3.iranserver.com:15692"
+
+galera_ip:
+  - "galera1.iranserver.com:9100"
+  - "galera2.iranserver.com:9100"
+  - "galera3.iranserver.com:9100"
+
+
+hpilo_ip:
+  - "ilo-elk.iranserver.com"
+  - "ilo-isvps202.iranserver.com"
+  - "ilo-infra1.iranserver.com"
+  - "ilo-infra1.iranserver.com"
+  - "ilo-infra2.iranserver.com"
+  - "ilo-infra3.iranserver.com"
+  - "ilo-compute1.iranserver.com"
+  - "ilo-compute2.iranserver.com"
+  - "ilo-compute3.iranserver.com"
+  - "ilo-compute4.iranserver.com"
+  - "ilo-compute5.iranserver.com"
+  - "ilo-compute6.iranserver.com"
+  - "ilo-compute7.iranserver.com"
+  - "ilo-compute8.iranserver.com"
+  - "ilo-compute9.iranserver.com"
+  - "ilo-compute10.iranserver.com"
+  - "ilo-compute11.iranserver.com"
+  - "ilo-compute12.iranserver.com"
+  - "ilo-compute13.iranserver.com"
+  - "ilo-compute14.iranserver.com"
+  - "ilo-compute15.iranserver.com"
+  - "ilo-compute16.iranserver.com"
+  - "ilo-compute17.iranserver.com"
+  - "ilo-compute18.iranserver.com"
+  - "ilo-compute19.iranserver.com"
+  - "ilo-compute20.iranserver.com"
+  - "ilo-compute21.iranserver.com"
+  - "ilo-compute22.iranserver.com"
+  - "ilo-compute23.iranserver.com"
+  - "ilo-compute24.iranserver.com"
+  - "ilo-compute25.iranserver.com"

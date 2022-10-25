@@ -1,0 +1,382 @@
+groups:
+- name: cloud alerting Hardware and Networking and service
+  rules:
+
+#node exporter
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem Node down
+    expr: up{job=~"compute|infra|nfs|glance|rabbitmq|galera"} == 0
+    for: 10m
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      title: Node {{ $labels.instance }} is down
+      description: OpenStack.beh.greenweb.local, Cloud-problem to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 10 minutes. Node seems down.
+
+#Prometheus job missing
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem PrometheusJobMissing
+    expr: absent(up{job="my-job"})
+    for: 5m
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem,job missing (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem, A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Prometheus all targets missing
+  - alert: OpenStack.beh.greenweb.local , PrometheusAllTargetsMissing
+    expr: count by (job) (up) == 0
+    for: 5m
+    labels:
+      service: cloud-team
+      severity: critical
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Prometheus all targets missing (instance {{ $labels.instance }})"
+      description: "tabriz Failed cloud problem A Prometheus job does not have living target anymore.\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Prometheus too many restarts
+  - alert: OpenStack.beh.greenweb.local,PrometheusTooManyRestarts
+    expr: changes(process_start_time_seconds{job=~"prometheus|pushgateway|alertmanager"}[15m]) > 3
+    for: 15m
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local,too many restarts (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local,too many restart,  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+#Host out of memory
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem HostOutOfMemory
+    expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host out of memory (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+
+#Host out of cpu (80 % use)
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem HostOutOfCPU
+    expr: (1 - avg(rate(node_cpu_seconds_total{job=~"compute",mode="idle"}[30s])) by (instance)) * 100 > 80
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host out of cpu (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Node cpu is filling up (< 20% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+#Host Read Disk above 800M
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem disk unusual usage 
+    expr: max(rate(node_disk_read_bytes_total{job=~"compute"}[30s])) by (instance) > 838860800 
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host disk unusual read usage  (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Node disk read is filling up (> 800 MB Read)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+#Host Write Disk above 800M
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem disk unusual usage
+    expr: max(rate(node_disk_written_bytes_total{job=~"compute"}[30s])) by (instance) > 838860800
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host disk unusual write usage  (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Node disk read is filling up (> 800 MB Write)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+#Host memory under memory pressure
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem HostMemoryUnderMemoryPressure
+    expr: rate(node_vmstat_pgmajfault[1m]) > 1000
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host memory under memory pressure (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem  The node is under heavy memory pressure. High rate of major page faults\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Host unusual network throughput in
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem HostUnusualNetworkThroughputIn
+    expr: sum by (instance) (irate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 700
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to  Failed cloud problem to Host unusual network throughput in (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Host network interfaces are probably receiving too much data (> 500 MB/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#Host unusual network throughput out
+  - alert: OpenStack.beh.greenweb.local, Cloud-problem HostUnusualNetworkThroughputOut
+    expr: sum by (instance) (irate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 700
+    for: 1d
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "OpenStack.beh.greenweb.local, Cloud-problem to Host unusual network throughput out (instance {{ $labels.instance }})"
+      description: "OpenStack.beh.greenweb.local, Cloud-problem to Host network interfaces are probably sending too much data (> 500 MB/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+# hpilo_fans
+  - alert: HW.beh.greenweb.local, NET-problem hpilo_fans
+    expr: (changes(hpilo_fans{}[1w])>0) and (hpilo_fans{}!=0)
+    for: 1d
+    labels:
+      service: hardware-team
+      severity: critical
+    annotations:
+      summary: "HW.beh.greenweb.local, Hardware-problem to hpilo_fans  (instance {{ $labels.instance }})"
+      description: "HW.beh.greenweb.local, Hardware-problem to hpilo_fans instance is Degraded or dead on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+# hpilo_processor
+  - alert: HW.beh.greenweb.local, Hardware-problem hpilo_processor
+    expr: (changes(hpilo_processor{}[1w])>0) and (hpilo_processor{}!=0) 
+    for: 1d
+    labels:
+      service: hardware-team
+      severity: critical
+    annotations:
+      summary: "HW.beh.greenweb.local, Hardware-problem to  hpilo_processor  (instance {{ $labels.instance }})"
+      description: "HW.beh.greenweb.local, Hardware-problem to  hpilo_processor instance is Degraded or Dead  on on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+
+
+# hpilo_power_supplies
+  - alert: HW.beh.greenweb.local, Hardware-problem hpilo_power_supplies
+    expr: (changes(hpilo_power_supplies{}[1w])>0) and (hpilo_power_supplies{}!=0)
+    for: 1d
+    labels:
+      service: hardware-team
+      severity: critical
+    annotations:
+      summary: "HW.beh.greenweb.local, Hardware-problem to hpilo_power_supplies  (instance {{ $labels.instance }})"
+      description: "HW.beh.greenweb.local, Hardware-problem to hpilo_power_supplies instance is Degraded or Dead on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+# hpilo_storage
+  - alert: HW.beh.greenweb.local, Hardware-problem hpilo_storage
+#    expr: (changes(hpilo_storage{}[1w])>0) and (hpilo_storage{}!=0)
+    expr: hpilo_storage{}!=0
+    for: 1d
+    labels:
+      service: hardware-team
+      severity: critical
+    annotations:
+      summary: "HW.beh.greenweb.local, Hardware-problem to hpilo_storage  (instance {{ $labels.instance }})"
+      description: "HW.beh.greenweb.local, Hardware-problem to  hpilo_storage instance is Degraded or Dead on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+# hpilo_memory
+  - alert: HW.beh.greenweb.local, Hardware-problem hpilo_memory
+    expr: (changes(hpilo_memory{}[1w])>0) and (hpilo_memory{}!=0)
+    for: 1d
+    labels:
+      service: hardware-team
+      dev_team: hardware-team
+      severity: critical
+    annotations:
+      summary: "HW.beh.greenweb.local, Hardware-problem to hpilo_memory  (instance {{ $labels.instance }})"
+      description: "HW.beh.greenweb.local, Hardware-problem to hpilo_memory instance is Degraded or Dead on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+####-------------------------------- switch -----------------------------
+#Host unusual network throughput in for 2 G
+  - alert: SW.beh.greenweb.local, NET-problem ifHCInOctets
+    expr: sum by (instance) (irate(ifHCInOctets{ifName=~"Eth.*"}[20m])) / 1024 / 1024 / 1024 > 2
+    for: 12h
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network throughput in (instance {{ $labels.instance }})"
+      description: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network interfaces are probably receiving too much data (> 2 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+#Host unusual network throughput out for 2 G
+  - alert: SW.beh.greenweb.local, NET-problem ifHCOutOctets
+    expr: sum by (instance) (irate(ifHCOutOctets{ifName=~"Eth.*"}[20m])) / 1024 / 1024 /1024 > 2
+    for: 12h
+    labels:
+      service: cloud-team
+      severity: warning
+    annotations:
+      summary: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network throughput out  (instance {{ $labels.instance }}  )"
+      description: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network interfaces are probably sending too much data (> 2 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+
+
+
+ 
+
+#1 for port 1 G 
+#Host unusual network throughput in
+  - alert: SW.beh.greenweb.local, NET-problem ifHCInOctets
+    expr: sum by (instance) (irate(ifHCOutOctets{ifName="Ethernet1/1", instance="sw-00312.iranserver.com"}[20m])) / 1024 / 1024 > 500
+    for: 30m
+    labels:
+      service: network-team
+      severity: warning
+    annotations:
+      summary: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network throughput in (instance {{ $labels.instance }})"
+      description: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network interfaces are probably receiving too much data (> 500 Mb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+#Host unusual network throughput out
+  - alert: SW.beh.greenweb.local, NET-problem ifHCOutOctets
+    expr: sum by (instance) (irate(ifHCOutOctets{ifName="Ethernet1/1", instance="sw-00312.iranserver.com"}[20m])) / 1024 / 1024 > 500
+    for: 30m
+    labels:
+      service: network-team
+      severity: warning
+    annotations:
+      summary: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network throughput out  (instance {{ $labels.instance }}  )"
+      description: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network interfaces are probably sending too much data (> 500 Mb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+#2 for port 10 G except vpls
+#Host unusual network throughput in
+#  - alert: SW.beh.greenweb.local, NET-problem ifHCInOctets
+#    expr: sum by (instance) (irate(ifHCInOctets{ifName=~"Te.*",ifAlias!~"VPLS|VPLS-Tabriz"}[20m])) / 1024 / 1024 / 1024 > 5
+#    for: 30m
+#    labels:
+#      service: network-team
+#      severity: warning
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network throughput in (instance {{ $labels.instance }})"
+#      description: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network interfaces are probably receiving too much data (> 5 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+#Host unusual network throughput out
+#  - alert: SW.beh.greenweb.local, NET-problem ifHCOutOctets
+#    expr: sum by (instance) (irate(ifHCOutOctets{ifName=~"Te.*",ifAlias!~"VPLS|VPLS-Tabriz"}[20m])) / 1024 / 1024 / 1024 > 5
+#    for: 30m
+#    labels:
+#      service: network-team
+#      severity: warning
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network throughput out  (instance {{ $labels.instance }}  )"
+#      description: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network interfaces are probably sending too much data (> 5 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+#3 for port vpls
+#Host unusual network throughput in
+#  - alert: SW.beh.greenweb.local, NET-problem ifHCInOctets
+#    expr: sum by (instance) (irate(ifHCInOctets{ifAlias=~"VPLS"}[20m])) / 1024 / 1024 / 1024  > 3
+#    for: 30m
+#    labels:
+#      service: network-team
+#      severity: warning
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network throughput in (instance {{ $labels.instance }})"
+#      description: "SW.beh.greenweb.local, NET-problem to ifHCInOctets network interfaces VPLS are probably receiving too much data (> 3 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+#Host unusual network throughput out
+#  - alert: SW.beh.greenweb.local, NET-problem ifHCOutOctets
+#    expr: sum by (instance) (irate(ifHCOutOctets{ifAlias=~"VPLS"}[20m])) / 1024 / 1024 / 1024  > 3
+#    for: 30m
+#    labels:
+#      service: network-team
+#      severity: warning
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network throughput out  (instance {{ $labels.instance }}  )"
+#      description: "SW.beh.greenweb.local, NET-problem to ifHCOutOctets network interfaces VPLS are probably sending too much data (> 3 Gb/s)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+# icmp
+#  - alert: SW.beh.greenweb.local, NET-problem icmp
+#    expr: probe_success {job="blackbox"}==0
+#    for: 60m
+#    labels:
+#      service: network-team
+#      severity: critical
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to icmp_duration_seconds  (instance {{ $labels.instance }})"
+#      description: "SW.beh.greenweb.local, NET-problem to icmp_duration_seconds instance is Down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+
+
+
+# icmp
+#  - alert: SW.beh.greenweb.local, NET-problem icmp
+#    expr: probe_success {job="server blackbox"}==0
+#    for: 1d
+#    labels:
+#      service: hardware-team
+#      severity: critical
+#    annotations:
+#      summary: "SW.beh.greenweb.local, NET-problem to icmp_duration_seconds  (instance {{ $labels.instance }})"
+#      description: "SW.beh.greenweb.local, NET-problem to icmp_duration_seconds instance is Down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+
+#  - alert: cloud team, ELK-problem SPACE is full 
+#    expr: 100 - ((node_filesystem_avail_bytes{instance=~"172.16.104.244:9100",job=~"elk-exporter",device!~'rootfs'} * 100) / node_filesystem_size_bytes{instance=~"172.16.104.244:9100",job=~"elk-exporter",device!~'rootfs'}) > 90
+#    for: 10m
+#    labels:
+#      service: cloud-team
+#      severity: warning
+#    annotations:
+#      summary: "cloud.tbz.greenweb.local, Cloud-problem,space is  full "
+#      description: "cloud.tbz.greenweb.local, Cloud-problem, A ELK job has full space \n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+#  - alert: cloud team, ELK-problem job down
+#    expr: up{job="docker-exporter"} == 0 
+#    for: 10m
+#    labels:
+#      service: cloud-team
+#      severity: warning
+#    annotations:
+#      title: Node {{ $labels.instance }} is down
+#      description: cloud Team, cloud-problem to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 10 minutes. Node seems down.
+#
+
+
+#  - alert: cloud team, ELK-problem job down
+#    expr: up{job="elk-exporter"} == 0
+#    for: 10m
+#    labels:
+#      service: cloud-team
+#      severity: warning
+#    annotations:
+#      title: Node {{ $labels.instance }} is down
+#      description: cloud Team, cloud-problem to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 10 minutes. Node seems down.
+
+
+#  - alert: cloud team, ELK-problem job down
+#    expr: up{job="engine-exporter"} == 0
+#    for: 10m
+#    labels:
+#      service: cloud-team
+#      severity: warning
+#    annotations:
+#      title: Node {{ $labels.instance }} is down
+#      description: cloud Team, cloud-problem to scrape {{ $labels.job }} on {{ $labels.instance }} for more than 10 minutes. Node seems down.
+
+
+

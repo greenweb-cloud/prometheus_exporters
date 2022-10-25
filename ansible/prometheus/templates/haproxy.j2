@@ -1,0 +1,17 @@
+[
+{% for item in haproxy_ip %}
+   {% set value = item.split('.') %}
+{
+        "targets": [
+            "{{ item }}"
+        ],
+        "labels": {
+            "job": "haproxy"
+        }
+   }
+    
+{% if not loop.last %}
+    ,
+{% endif %}
+{% endfor %}
+]

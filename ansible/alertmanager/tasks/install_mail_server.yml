@@ -1,0 +1,19 @@
+---
+
+- name: scp config mail server
+  copy:
+    src: "{{ source_mail_server }}"
+    dest: "{{ dest_path }}"
+    mode: 0755
+  tags:
+    - alert_manager
+    - mail_server
+
+- name: run script for install mail server
+  shell: "{{ run_mail_server  }}"
+  tags:
+    - alert_manager
+    - mail_server
+
+
+
