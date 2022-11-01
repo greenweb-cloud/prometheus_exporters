@@ -19,7 +19,7 @@ After=network-online.target
 User=node_exporter
 Group=node_exporter
 Type=simple
-ExecStart=/usr/local/bin/node_exporter
+ExecStart=/usr/local/bin/node_exporter --collector.systemd
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/node_exporter.service
