@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #https://github.com/prometheus/blackbox_exporter/releases/download/v0.18.0/blackbox_exporter-0.18.0.linux-amd64.tar.gz
-BLACKBOX_EXPORTER_VERSION="0.18.0"
+BLACKBOX_EXPORTER_VERSION=$(curl -sL https://api.github.com/repos/prometheus/blackbox_exporter/releases/latest | grep "tag_name"   | sed -E 's/.*"([^"]+)".*/\1/'|sed 's/v//')
+#BLACKBOX_EXPORTER_VERSION="0.18.0"
 wget https://github.com/prometheus/blackbox_exporter/releases/download/v${BLACKBOX_EXPORTER_VERSION}/blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64.tar.gz
 tar -xzvf blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64.tar.gz
 cd blackbox_exporter-${BLACKBOX_EXPORTER_VERSION}.linux-amd64
