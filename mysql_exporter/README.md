@@ -10,3 +10,14 @@ mysql exporter for prometheus monitoring
     static_configs:
       - targets: ['localhost:9104']
 ```
+
+
+## add .my.cnf
+add .my.cnf in /home/mysqld_exporter path
+
+```
+[client]
+host = localhost
+user = root
+password = galear_root_password
+```
