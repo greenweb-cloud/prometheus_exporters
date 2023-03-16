@@ -19,5 +19,5 @@ add .my.cnf in /home/mysqld_exporter path
 [client]
 host = localhost
 user = root
-password = galear_root_password
+password = galera_root_password
 ```
