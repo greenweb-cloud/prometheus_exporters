@@ -1,6 +1,8 @@
 [reconfigure]
 127.0.0.1
 
+
+
 [compute]
 #compute1.iranserver.com
 #compute2.iranserver.com
@@ -94,6 +96,3 @@ galera2.iranserver.com
 galera3.iranserver.com
 
 
-
-[test]
-compute1.afranet

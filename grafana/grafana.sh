@@ -1,9 +1,11 @@
 #!/bin/bash
-echo 'deb https://packages.grafana.com/oss/deb stable main' >> /etc/apt/sources.list
-curl https://packages.grafana.com/gpg.key | sudo apt-key add -
 sudo apt-get update
-sudo apt-get -y install grafana
+sudo apt-get -y install  adduser libfontconfig1
+
+wget https://dl.grafana.com/oss/release/grafana_9.2.3_amd64.deb
+
+sudo dpkg -i grafana_9.2.3_amd64.deb
 
 systemctl daemon-reload
-systemctl start grafana-server
+systemctl restart grafana-server
 systemctl enable grafana-server.service

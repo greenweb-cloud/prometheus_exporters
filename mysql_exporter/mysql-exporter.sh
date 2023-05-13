@@ -1,6 +1,7 @@
 #!/bin/bash
 #https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
-MYSQL_EXPORTER_VERSION="0.12.1"
+MYSQL_EXPORTER_VERSION=$(curl -sL https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest | grep "tag_name"   | sed -E 's/.*"([^"]+)".*/\1/'|sed 's/v//')
+#MYSQL_EXPORTER_VERSION="0.12.1"
 wget https://github.com/prometheus/mysqld_exporter/releases/download/v${MYSQL_EXPORTER_VERSION}/mysqld_exporter-${MYSQL_EXPORTER_VERSION}.linux-amd64.tar.gz
 tar -xzvf mysqld_exporter-${MYSQL_EXPORTER_VERSION}.linux-amd64.tar.gz
 cd mysqld_exporter-${MYSQL_EXPORTER_VERSION}.linux-amd64
@@ -10,6 +11,11 @@ cp mysqld_exporter /usr/local/bin
 useradd --no-create-home --shell /bin/false mysqld_exporter
 
 chown mysqld_exporter:mysqld_exporter /usr/local/bin/mysqld_exporter
+
+mkdir -p /home/mysqld_exporter
+cp /root/.my.cnf /home/mysqld_exporter/
+chown -R mysqld_exporter:mysqld_exporter /home/mysqld_exporter
+
 
 echo '[Unit]
 Description=Node Exporter

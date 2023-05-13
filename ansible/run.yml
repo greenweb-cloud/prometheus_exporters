@@ -1,6 +1,6 @@
 ---
 - hosts: "{{ machine }}"
-  gather_facts: no
+  gather_facts: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:

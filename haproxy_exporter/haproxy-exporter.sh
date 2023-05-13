@@ -1,5 +1,6 @@
 #!/bin/bash
-HAPROXY_EXPORTER_VERSION="0.12.0"
+HAPROXY_EXPORTER_VERSION=$(curl -sL https://api.github.com/repos/prometheus/haproxy_exporter/releases/latest | grep "tag_name"   | sed -E 's/.*"([^"]+)".*/\1/'|sed 's/v//')
+#HAPROXY_EXPORTER_VERSION="0.12.0"
 #https://github.com/prometheus/haproxy_exporter/releases/download/v0.12.0/haproxy_exporter-0.12.0.linux-amd64.tar.gz
 wget https://github.com/prometheus/haproxy_exporter/releases/download/v${HAPROXY_EXPORTER_VERSION}/haproxy_exporter-${HAPROXY_EXPORTER_VERSION}.linux-amd64.tar.gz
 tar -xzvf haproxy_exporter-${HAPROXY_EXPORTER_VERSION}.linux-amd64.tar.gz
