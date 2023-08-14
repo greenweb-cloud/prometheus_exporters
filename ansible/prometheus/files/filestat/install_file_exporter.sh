@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cp filestat_exporter /usr/local/bin/filestat_exporter
-cp filestat.yaml /usr/local/bin/filestat.yaml
+cp /home/filestat_exporter /usr/local/bin/filestat_exporter
+cp /home/filestat.yaml /usr/local/bin/filestat.yaml
 
 # create user
 #useradd --no-create-home --shell /bin/false filestat_exporter

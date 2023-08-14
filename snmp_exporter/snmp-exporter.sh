@@ -1,5 +1,6 @@
 #!/bin/bash
-SNMP_EXPORTER_VERSION="0.19.0"
+#SNMP_EXPORTER_VERSION="0.19.0"
+SNMP_EXPORTER_VERSION=$(curl -sL https://api.github.com/repos/prometheus/snmp_exporter/releases/latest | grep "tag_name"   | sed -E 's/.*"([^"]+)".*/\1/'|sed 's/v//')
 wget https://github.com/prometheus/snmp_exporter/releases/download/v${SNMP_EXPORTER_VERSION}/snmp_exporter-${SNMP_EXPORTER_VERSION}.linux-amd64.tar.gz
 tar -xzvf snmp_exporter-${SNMP_EXPORTER_VERSION}.linux-amd64.tar.gz
 cd snmp_exporter-${SNMP_EXPORTER_VERSION}.linux-amd64
