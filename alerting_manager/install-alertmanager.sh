@@ -1,36 +1,28 @@
 #!/bin/bash
-ALERTMANAGER_VERSION="0.24.0"
-wget https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-amd64.tar.gz
-tar xvzf alertmanager-${ALERTMANAGER_VERSION}.linux-amd64.tar.gz
-cd alertmanager-${ALERTMANAGER_VERSION}.linux-amd64/
-# if you just want to start prometheus as root
-#./alertmanager --config.file=simple.yml
 
-# create user
-useradd --no-create-home --shell /bin/false alertmanager 
+# Specify the latest version of Alertmanager
+ALERTMANAGER_VERSION=$(curl -s https://api.github.com/repos/prometheus/alertmanager/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/^v//')
+DOWNLOAD_URL="https://github.com/prometheus/alertmanager/releases/download/v$ALERTMANAGER_VERSION/alertmanager-$ALERTMANAGER_VERSION.linux-amd64.tar.gz"
 
-# create directories
-mkdir /etc/alertmanager
-mkdir /etc/alertmanager/template
+# Download and install the latest Alertmanager version
+mkdir -p /tmp/alertmanager-install
+cd /tmp/alertmanager-install
+wget "$DOWNLOAD_URL" -O alertmanager.tar.gz
+tar xvzf alertmanager.tar.gz
+cp alertmanager-$ALERTMANAGER_VERSION.linux-amd64/{alertmanager,amtool} /usr/local/bin/
+rm -rf /tmp/alertmanager-install
+
+# Create an alertmanager user and directories
+useradd --no-create-home --shell /bin/false alertmanager
+mkdir -p /etc/alertmanager/template
 mkdir -p /var/lib/alertmanager/data
 
-# touch config file
+# Create and set ownership for config file and directories
 touch /etc/alertmanager/alertmanager.yml
+chown -R alertmanager:alertmanager /etc/alertmanager /var/lib/alertmanager
 
-# set ownership
-chown -R alertmanager:alertmanager /etc/alertmanager
-chown -R alertmanager:alertmanager /var/lib/alertmanager
-
-# copy binaries
-cp alertmanager /usr/local/bin/
-cp amtool /usr/local/bin/
-
-# set ownership
-chown alertmanager:alertmanager /usr/local/bin/alertmanager
-chown alertmanager:alertmanager /usr/local/bin/amtool
-
-# setup systemd
-echo '[Unit]
+# Setup systemd service
+echo "[Unit]
 Description=Prometheus Alertmanager Service
 Wants=network-online.target
 After=network.target
@@ -45,19 +37,17 @@ ExecStart=/usr/local/bin/alertmanager \
 Restart=always
 
 [Install]
-WantedBy=multi-user.target' > /etc/systemd/system/alertmanager.service
+WantedBy=multi-user.target" > /etc/systemd/system/alertmanager.service
 
+# Reload systemd, enable and start the Alertmanager service
 systemctl daemon-reload
 systemctl enable alertmanager
 systemctl start alertmanager
 
-# restart prometheus
-systemctl start prometheus
-
-
-echo "(1/2)Setup complete.
-Add the following lines and substitute with correct values to /etc/alertmanager/alertmanager.yml:
-
+# Notify user about setup completion
+echo "(1/2) Setup complete."
+echo "Add the following lines and substitute with correct values to /etc/alertmanager/alertmanager.yml:"
+echo "
 global:
   smtp_smarthost: 'localhost:25'
   smtp_from: 'alertmanager@prometheus.com'
@@ -79,15 +69,17 @@ receivers:
   slack_configs:
   - api_url: https://hooks.slack.com/services/XXXXXX/XXXXXX/XXXXXX
     channel: '#prometheus-course'
-    send_resolved: true
- "
+    send_resolved: true" > /tmp/alertmanager-setup-instructions
 
-  echo "(2/2)Setup complete.
-Alter the following config in /etc/prometheus/prometheus.yml:
-
+# Notify user about the second step
+echo "(2/2) Setup complete."
+echo "Alter the following config in /etc/prometheus/prometheus.yml:"
+echo "
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
-      - localhost:9093"
+      - localhost:9093" >> /tmp/alertmanager-setup-instructions
 
+# Display setup instructions
+cat /tmp/alertmanager-setup-instructions
