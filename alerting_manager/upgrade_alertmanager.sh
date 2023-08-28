@@ -1,5 +1,5 @@
 #!/bin/bash
-ALERTMANAGER_VERSION="0.24.0"
+ALERTMANAGER_VERSION=$(curl -s https://api.github.com/repos/prometheus/alertmanager/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | sed 's/^v//')
 wget https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-amd64.tar.gz
 tar xvzf alertmanager-${ALERTMANAGER_VERSION}.linux-amd64.tar.gz
 

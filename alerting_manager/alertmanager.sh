@@ -69,7 +69,7 @@ receivers:
   slack_configs:
   - api_url: https://hooks.slack.com/services/XXXXXX/XXXXXX/XXXXXX
     channel: '#prometheus-course'
-    send_resolved: true" > /tmp/alertmanager-setup-instructions
+    send_resolved: true" > /etc/alertmanager/alertmanager.yml
 
 # Notify user about the second step
 echo "(2/2) Setup complete."
