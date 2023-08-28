@@ -1,0 +1,40 @@
+---
+- name: Download and run install-mailserver.sh
+  get_url:
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/install-mailserver.sh
+    dest: /tmp/install-mailserver.sh
+    mode: '0755' 
+  tags:
+    - alertmanager
+
+- name: Run install-mailserver.sh
+  shell: /tmp/install-mailserver.sh
+  tags:
+    - alertmanager
+
+- name: Download and run install-alertmanager.sh
+  get_url:
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/install-alertmanager.sh
+    dest: /tmp/install-alertmanager.sh
+    mode: '0755'  
+  tags:
+    - alertmanager
+
+- name: Run install-alertmanager.sh
+  shell: /tmp/install-alertmanager.sh
+  tags:
+    - alertmanager
+
+- name: Remove downloaded scripts
+  file:
+    path: /tmp/install-mailserver.sh
+    state: absent
+  tags:
+    - alertmanager
+
+- name: Remove downloaded scripts
+  file:
+    path: /tmp/install-alertmanager.sh
+    state: absent
+  tags:
+    - alertmanager

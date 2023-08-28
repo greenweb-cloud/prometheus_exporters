@@ -1,5 +1,8 @@
 ---
 # tasks file for prometheus
+- include: prometheus.yml
+- include: alertmanager.yml
+
 
 # tasks file for mysql_backup
 - include: compute.yml

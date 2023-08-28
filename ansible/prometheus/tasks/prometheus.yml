@@ -1,0 +1,21 @@
+---
+
+- name: Download the script
+  get_url:
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/prometheus/prometheus.sh
+    dest: /tmp/prometheus.sh
+    mode: '0755'  # Make the script executable
+  tags:
+    - prometheus
+
+- name: Run the script
+  shell: /tmp/prometheus.sh
+  tags:
+    - prometheus
+
+- name: Remove the script
+  file:
+    path: /tmp/prometheus.sh
+    state: absent
+  tags:
+    - prometheus
