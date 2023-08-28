@@ -32,7 +32,9 @@ inet_protocols = all
 ' > /etc/postfix/main.cf
 
 # restart postfix
-service postfix restart
+systemctl daemon-reload
+systemctl restart postfix
+systemctl enable postfix
 
 echo "(1/2)Setup complete.
 Add the following lines and substitute with correct values to /etc/alertmanager/alertmanager.yml:
