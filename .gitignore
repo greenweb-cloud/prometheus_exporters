@@ -1,2 +1,2 @@
-ansible/inventory
-ansible/ansible.cfg
+./ansible/inventory
+./ansible/ansible.cfg
