@@ -22,14 +22,14 @@ After=network-online.target
 User=blackbox_exporter
 Group=blackbox_exporter
 Type=service
-ExecStart=/usr/local/bin/blackbox_exporter  --config.file=/etc/prometheus/blackbox.yml
+ExecStart=/usr/local/bin/blackbox_exporter  --config.file=/etc/blackbox_exporter/blackbox.yml
 
 [Install]
 WantedBy=multi-user.target' > /etc/systemd/system/blackbox_exporter.service
 
 # enable blackbox_exporter in systemctl
 systemctl daemon-reload
-systemctl start blackbox_exporter
+systemctl restart blackbox_exporter
 systemctl enable blackbox_exporter
 
 

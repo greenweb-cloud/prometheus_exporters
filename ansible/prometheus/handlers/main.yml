@@ -5,3 +5,8 @@
   systemd:
     name: prometheus
     state: restarted
+
+- name: Restart Blackbox Exporter
+  systemd:
+    name: blackbox_exporter
+    state: restarted
