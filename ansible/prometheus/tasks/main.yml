@@ -2,6 +2,7 @@
 # tasks file for prometheus
 - include: prometheus.yml
 - include: alertmanager.yml
+- include: grafana.yml
 
 
 # tasks file for mysql_backup
@@ -17,3 +18,4 @@
 - include: file.yml
 - include: libvirt.yml
 - include: node_exporter.yml
+- include: blackbox_exporter.yml

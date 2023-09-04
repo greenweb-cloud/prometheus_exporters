@@ -1,0 +1,20 @@
+---
+- name: Download and run grafana.sh
+  get_url:
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/grafana/grafana.sh
+    dest: /tmp/grafana.sh
+    mode: '0755'  # Make the script executable
+  tags:
+    - grafana
+
+- name: Run grafana.sh
+  shell: /tmp/grafana.sh
+  tags:
+    - grafana
+
+- name: Remove downloaded script
+  file:
+    path: /tmp/grafana.sh
+    state: absent
+  tags:
+    - grafana

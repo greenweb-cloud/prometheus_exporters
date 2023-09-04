@@ -1,0 +1,39 @@
+---
+- name: Check if Blackbox Exporter service is installed
+  systemd:
+    name: blackbox_exporter
+    state: started
+  register: blackbox_exporter_service
+  tags:
+    - blackbox_exporter
+
+- name: Download the Blackbox Exporter script
+  get_url:
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/blackbox_exporter/blackbox-exporter.sh
+    dest: /tmp/blackbox-exporter.sh
+    mode: '0755'  # Make the script executable
+  when: blackbox_exporter_service.status == 'absent'
+  tags:
+    - blackbox_exporter
+
+- name: Run the Blackbox Exporter script
+  shell: /tmp/blackbox-exporter.sh
+  when: blackbox_exporter_service.status == 'absent'
+  tags:
+    - blackbox_exporter
+
+- name: Remove the Blackbox Exporter script
+  file:
+    path: /tmp/blackbox-exporter.sh
+    state: absent
+  when: blackbox_exporter_service.status == 'absent'
+  tags:
+    - blackbox_exporter
+
+- name: Configure Blackbox Exporter
+  template:
+    src: blackbox_exporter_config.j2
+    dest: /etc/blackbox_exporter/blackbox.yml
+  tags:
+    - blackbox_exporter
+  notify: Restart Blackbox Exporter
