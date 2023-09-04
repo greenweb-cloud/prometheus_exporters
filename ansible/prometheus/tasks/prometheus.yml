@@ -1,15 +1,24 @@
 ---
-
+- name: Check if Prometheus service is installed
+  systemd:
+    name: prometheus
+    state: started
+  register: prometheus_service
+  tags:
+    - prometheus
+      
 - name: Download the script
   get_url:
     url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/prometheus/prometheus.sh
     dest: /tmp/prometheus.sh
     mode: '0755'  # Make the script executable
+  when: prometheus_service.status == 'absent'
   tags:
     - prometheus
 
 - name: Run the script
   shell: /tmp/prometheus.sh
+  when: prometheus_service.status == 'absent'
   tags:
     - prometheus
 
@@ -17,5 +26,14 @@
   file:
     path: /tmp/prometheus.sh
     state: absent
+  when: prometheus_service.status == 'absent'
   tags:
     - prometheus
+
+- name: Configure Prometheus
+  template:
+    src: prometheus_config.j2
+    dest: /etc/prometheus/prometheus.yml
+  tags:
+    - prometheus
+  notify: Restart Prometheus

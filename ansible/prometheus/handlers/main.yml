@@ -1,2 +1,7 @@
 ---
 # handlers file for prometheus
+
+- name: Restart Prometheus
+  systemd:
+    name: prometheus
+    state: restarted

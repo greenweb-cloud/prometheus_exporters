@@ -1,27 +1,48 @@
 ---
+- name: Check if Postfix service is installed
+  systemd:
+    name: postfix
+    state: started
+  register: postfix_service
+  tags:
+    - alertmanager
+
+
+- name: Check if Alertmanager service is installed
+  systemd:
+    name: alertmanager
+    state: started
+  register: alertmanager_service
+  tags:
+    - alertmanager
+
 - name: Download and run install-mailserver.sh
   get_url:
-    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/install-mailserver.sh
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/mailserver.sh
     dest: /tmp/install-mailserver.sh
-    mode: '0755' 
+    mode: '0755'
+  when: postfix_service.status == 'absent'
   tags:
     - alertmanager
 
 - name: Run install-mailserver.sh
   shell: /tmp/install-mailserver.sh
+  when: postfix_service.status == 'absent'
   tags:
     - alertmanager
 
 - name: Download and run install-alertmanager.sh
   get_url:
-    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/install-alertmanager.sh
+    url: https://raw.githubusercontent.com/greenweb-cloud/prometheus_exporters/main/alerting_manager/alertmanager.sh
     dest: /tmp/install-alertmanager.sh
-    mode: '0755'  
+    mode: '0755'
+  when: alertmanager_service.status == 'absent'
   tags:
     - alertmanager
 
 - name: Run install-alertmanager.sh
   shell: /tmp/install-alertmanager.sh
+  when: alertmanager_service.status == 'absent'
   tags:
     - alertmanager
 
@@ -29,6 +50,7 @@
   file:
     path: /tmp/install-mailserver.sh
     state: absent
+  when: postfix_service.status == 'absent'
   tags:
     - alertmanager
 
@@ -36,5 +58,15 @@
   file:
     path: /tmp/install-alertmanager.sh
     state: absent
+  when: alertmanager_service.status == 'absent'
+  tags:
+    - alertmanager
+
+- name: Replace rule_files in Prometheus config
+  replace:
+    path: /etc/prometheus/prometheus.yml  # Path to your Prometheus configuration file
+    regexp: 'rule_files:\s*'
+    replace: 'rule_files:\n   - "/etc/prometheus/alert.rules" \n\n'
+  notify: Restart Prometheus
   tags:
     - alertmanager

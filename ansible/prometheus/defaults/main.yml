@@ -1,4 +1,5 @@
 ---
+
 # Copyright 2021 , GreenWeb Co
 # Licensed under the Apache License, Version 2.0 (the "License");
  
@@ -9,6 +10,26 @@ debug: False
 dest_path: "/home/"
 source_path: "../files/"
 template_path : "/etc/prometheus/conf.d/"
+
+
+
+
+
+
+
+
+
+scrape_interval: "60s"
+evaluation_interval: "60s"
+alertmanager_target: "localhost:9093"
+rule_file_path: "/etc/prometheus/alert.rules"
+
+
+
+
+
+
+
 
 
 
