@@ -2,6 +2,8 @@
 Import and Export Grafana Dashboard 
 ------------
 
+
+
 with this playbook you can import and export dashboard with json file
 
 Role Name
@@ -18,6 +20,8 @@ must be install ansible and garafana
 
 Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
+
+You must install this item before running =>  ansible-galaxy collection install community.grafana
 
 Role Variables
 --------------
@@ -69,6 +73,14 @@ Including an example of how to use your role (for instance, with variables passe
     - hosts: servers
       roles:
          - { role: username.rolename, x: 42 }
+
+
+
+ERRORS
+----------------
+If you encounter an error like Failed to upgrade legacy queries Datasource ${DS_PROMETHEUS} was not found
+, add the source for Prometheus manually for each dashboard in the variables section.
+
 
 License
 -------
