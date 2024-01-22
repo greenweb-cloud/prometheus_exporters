@@ -1,11 +1,44 @@
 ---
+
+#this section need test
+- name: Add Prometheus datasource
+  community.grafana.grafana_datasource:
+    name: "DS_PROMETHEUS"
+    grafana_url: "{{url}}"
+    grafana_user: "{{ grafana_admin_user }}"
+    grafana_password: "{{ grafana_admin_password }}"
+    org_id: "1"
+    ds_type: "prometheus"
+    access: "proxy"  # Or adjust to "direct" if needed
+    ds_url: "http://127.0.0.1:9090"
+  register: result
+
+
+
+
+- name: Copy dashboard JSON file to target host
+  copy:
+    path: "{{path}}{{uid}}.json"
+    #src: "{{ path }}/files/Cisco_switch.json"
+    dest: "/root"
+
+
 - name: Import dashboard
   community.grafana.grafana_dashboard:
     grafana_url: "{{url}}"
-    grafana_api_key: "{{ grafana_api_key }}"
+    #grafana_api_key: "{{ grafana_api_key }}"
+    grafana_user: "{{ grafana_admin_user }}"
+    grafana_password: "{{ grafana_admin_password }}"
     state: present
     commit_message: Updated by ansible
     overwrite: yes
     path: "{{path}}{{uid}}.json"
+    #path: "root/Cisco_switch.json"
   tags:
     - grafana_import
+
+
+- name: Restart Grafana server
+  service:
+      name: grafana-server
+      state: restarted

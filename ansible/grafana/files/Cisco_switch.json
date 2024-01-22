@@ -1,0 +1,2742 @@
+{
+    "__inputs": [
+      {
+        "name": "DS_PROMETHEUS",
+        "label": "Prometheus",
+        "description": "",
+        "type": "datasource",
+        "pluginId": "prometheus",
+        "pluginName": "Prometheus"
+      }
+    ],
+    "__elements": {},
+    "__requires": [
+      {
+        "type": "panel",
+        "id": "bargauge",
+        "name": "Bar gauge",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "gauge",
+        "name": "Gauge",
+        "version": ""
+      },
+      {
+        "type": "grafana",
+        "id": "grafana",
+        "name": "Grafana",
+        "version": "10.1.4"
+      },
+      {
+        "type": "panel",
+        "id": "graph",
+        "name": "Graph (old)",
+        "version": ""
+      },
+      {
+        "type": "datasource",
+        "id": "prometheus",
+        "name": "Prometheus",
+        "version": "1.0.0"
+      },
+      {
+        "type": "panel",
+        "id": "stat",
+        "name": "Stat",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "state-timeline",
+        "name": "State timeline",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "table",
+        "name": "Table",
+        "version": ""
+      }
+    ],
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "description": "For snmp_exporter IF-MIB",
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "gnetId": 11169,
+    "graphTooltip": 1,
+    "id": null,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "fillOpacity": 76,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineWidth": 0,
+              "spanNulls": false
+            },
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "color": "red",
+                    "index": 0,
+                    "text": "   Down"
+                  },
+                  "1": {
+                    "color": "green",
+                    "index": 1,
+                    "text": "   Up"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 0
+                },
+                {
+                  "color": "dark-green",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 8,
+          "x": 0,
+          "y": 0
+        },
+        "id": 50,
+        "options": {
+          "alignValue": "center",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mergeValues": true,
+          "rowHeight": 0.9,
+          "showValue": "auto",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "8.1.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "up{job=\"snmp_switch\",instance=~\".*greenweb.local|.*iranserver.local\"}",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Job Status",
+        "type": "state-timeline"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "super-light-red",
+                  "value": null
+                },
+                {
+                  "color": "semi-dark-green",
+                  "value": 100000
+                }
+              ]
+            },
+            "unit": "timeticks"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 8,
+          "x": 8,
+          "y": 0
+        },
+        "id": 54,
+        "options": {
+          "displayMode": "lcd",
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {},
+          "valueMode": "color"
+        },
+        "pluginVersion": "10.1.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "sysUpTime{job='snmp_switch'}",
+            "format": "time_series",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Switch Uptime",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "fillOpacity": 100,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineWidth": 0,
+              "spanNulls": false
+            },
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "color": "red",
+                    "index": 0,
+                    "text": "Down"
+                  },
+                  "1": {
+                    "color": "green",
+                    "index": 1,
+                    "text": "UP"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 8,
+          "x": 16,
+          "y": 0
+        },
+        "id": 52,
+        "options": {
+          "alignValue": "center",
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "mergeValues": true,
+          "rowHeight": 0.81,
+          "showValue": "auto",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "probe_success{job=\"networkping\"}",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "title": "PING TimeLine",
+        "type": "state-timeline"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 70
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 12,
+          "x": 0,
+          "y": 13
+        },
+        "id": 43,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "10.1.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "ciscoMemoryPoolUsed{ciscoMemoryPoolType=\"1\"}/(ciscoMemoryPoolUsed{ciscoMemoryPoolType=\"1\"}+ciscoMemoryPoolFree{ciscoMemoryPoolType=\"1\"})*100",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Memory Usage",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 12,
+          "x": 12,
+          "y": 13
+        },
+        "id": 67,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "10.1.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "cpmCPUTotal1minRev{job=\"snmp_switch\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{instance}} {{cpmCPUTotalIndex}}",
+            "refId": "A"
+          }
+        ],
+        "title": "CPU Usage",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 50
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 12,
+          "x": 0,
+          "y": 20
+        },
+        "id": 39,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "10.1.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "ciscoEnvMonTemperatureStatusValue{ciscoEnvMonTemperatureStatusIndex=\"1\",job=\"snmp_switch\"}",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Switch Temperature",
+        "type": "gauge"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 13,
+          "w": 12,
+          "x": 12,
+          "y": 20
+        },
+        "hiddenSeries": false,
+        "id": 41,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "10.1.4",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "cpmCPUTotal1minRev{job=\"snmp_switch\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{instance}} ",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeRegions": [],
+        "title": "CPU Usage Graph",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "mode": "time",
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "logBase": 1,
+            "show": true
+          },
+          {
+            "format": "short",
+            "logBase": 1,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifIndex"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 80
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifName"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 122
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "job"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 96
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifDescr"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 228
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 27
+        },
+        "id": 37,
+        "maxDataPoints": 100,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Value"
+            }
+          ]
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCOutOctets{job=\"snmp_switch\"}[5m])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Out: {{ifName}} ({{ifAlias}})",
+            "refId": "A"
+          }
+        ],
+        "title": "HIGHEST OUT USAGE All Switch",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "ifIndex": true,
+                "job": true
+              },
+              "indexByName": {},
+              "renameByName": {
+                "Time": ""
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifIndex"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 80
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifName"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "job"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 94
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifDescr"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifAlias"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 0,
+          "y": 33
+        },
+        "id": 44,
+        "maxDataPoints": 100,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Value"
+            }
+          ]
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCOutOctets{job=\"snmp_switch\",instance=\"$Instance\"}[5m])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Out: {{ifName}} ({{ifAlias}})",
+            "refId": "A"
+          }
+        ],
+        "title": "HIGHEST OUT USAGE For Switch : $Instance",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "ifIndex": true,
+                "job": true
+              },
+              "indexByName": {},
+              "renameByName": {}
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 12,
+          "y": 33
+        },
+        "id": 36,
+        "maxDataPoints": 100,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Value"
+            }
+          ]
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCInOctets{job=\"snmp_switch\"}[5m])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "In: {{ifName}} ({{ifAlias}})",
+            "refId": "A"
+          }
+        ],
+        "title": "HIGHEST IN USAGE  All Switch",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "ifIndex": true,
+                "job": true
+              },
+              "indexByName": {},
+              "renameByName": {}
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 6,
+          "x": 0,
+          "y": 39
+        },
+        "id": 24,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(irate(ifHCInOctets{job=\"$Job\",instance=\"$Instance\"}[5m]))",
+            "interval": "",
+            "legendFormat": "In",
+            "refId": "A"
+          }
+        ],
+        "title": "Max In (Current) Switch : $Instance",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 6,
+          "x": 6,
+          "y": 39
+        },
+        "id": 23,
+        "interval": "",
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(irate(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\"}[5m]))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "Out",
+            "refId": "A"
+          }
+        ],
+        "title": "Max Out (Current) Switch : $Instance",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": false,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Time"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 46
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifAlias"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifDescr"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifIndex"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 76
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ifName"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "job"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 29
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 90
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 12,
+          "x": 12,
+          "y": 39
+        },
+        "id": 45,
+        "maxDataPoints": 100,
+        "options": {
+          "footer": {
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "frameIndex": 0,
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Value"
+            }
+          ]
+        },
+        "pluginVersion": "9.3.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "irate(ifHCInOctets{job=\"snmp_switch\",instance=\"$Instance\"}[$interval])",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "In: {{ifName}} ({{ifAlias}})",
+            "refId": "A"
+          }
+        ],
+        "title": "HIGHEST IN USAGE For Switch : $Instance",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "ifIndex": true,
+                "job": true
+              },
+              "indexByName": {},
+              "renameByName": {}
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 0,
+          "y": 42
+        },
+        "id": 56,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(irate(ifHCInOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\"}[5m]))",
+            "interval": "",
+            "legendFormat": "In",
+            "refId": "A"
+          }
+        ],
+        "title": "Max In (Current) Port: $ifAlias",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 5,
+          "y": 42
+        },
+        "id": 64,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "avg_over_time((rate(ifHCInOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\", ifHighSpeed=~\"1000|10000\"}[5m]) )[30d:])",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Avg In  $ifAlias",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 7,
+          "y": 42
+        },
+        "id": 58,
+        "interval": "",
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(irate(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\"}[5m]))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "Out",
+            "refId": "A"
+          }
+        ],
+        "title": "Max Out (Current) Port: $ifAlias",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 6,
+          "x": 0,
+          "y": 45
+        },
+        "id": 28,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(delta(ifHCInOctets{job=\"$Job\",instance=\"$Instance\"}[$__range]))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "In",
+            "refId": "A"
+          }
+        ],
+        "title": "Total In  Switch : $Instance",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 6,
+          "x": 6,
+          "y": 45
+        },
+        "id": 29,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(delta(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\"}[$__range]))",
+            "interval": "",
+            "legendFormat": "Out",
+            "refId": "A"
+          }
+        ],
+        "title": "Total Out Switch : $Instance",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "Bps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 12,
+          "y": 45
+        },
+        "id": 66,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "avg_over_time((rate(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\", ifHighSpeed=~\"1000|10000\"}[5m]) )[30d:])",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Avg Out $ifAlias",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 14,
+          "y": 45
+        },
+        "id": 60,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(delta(ifHCInOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\"}[$__range]))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "In",
+            "refId": "A"
+          }
+        ],
+        "title": "Total In  Port: $ifAlias",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 2,
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 5,
+          "x": 19,
+          "y": 45
+        },
+        "id": 62,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "max(delta(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\",ifAlias=\"$ifAlias\"}[$__range]))",
+            "interval": "",
+            "legendFormat": "Out",
+            "refId": "A"
+          }
+        ],
+        "title": "Total Out Port: $ifAlias",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "Max: 10MB  \nRed Status: 9MB",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 48
+        },
+        "hiddenSeries": false,
+        "id": 31,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "9.2.3",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\"}[5m])",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{ifName}} ({{ifAlias}})",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeRegions": [],
+        "title": "Out (Current)  For Switch : $Instance",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "mode": "time",
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:51",
+            "format": "decbytes",
+            "logBase": 1,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:52",
+            "format": "short",
+            "logBase": 1,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "Max: 10MB  \nRed Status: 9MB",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 48
+        },
+        "hiddenSeries": false,
+        "id": 32,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "9.2.3",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCInOctets{job=\"$Job\",instance=\"$Instance\"}[5m])",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{ifName}} ({{ifAlias}})",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeRegions": [],
+        "title": "In (Current)  For Switch : $Instance",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "mode": "time",
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:224",
+            "format": "decbytes",
+            "logBase": 1,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:225",
+            "format": "short",
+            "logBase": 1,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 2,
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 57
+        },
+        "hiddenSeries": false,
+        "id": 21,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": true,
+          "min": true,
+          "rightSide": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "9.2.3",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "irate(ifHCOutOctets{job=\"$Job\",instance=\"$Instance\"}[5m])",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Out: {{ifName}} ({{ifAlias}})",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "- irate(ifHCInOctets{job=\"$Job\",instance=\"$Instance\"}[5m])",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "In: {{ifName}} ({{ifAlias}})",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeRegions": [],
+        "title": "Out / In  For Switch : $Instance",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "mode": "time",
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "$$hashKey": "object:279",
+            "format": "decbytes",
+            "logBase": 1,
+            "show": true
+          },
+          {
+            "$$hashKey": "object:280",
+            "format": "short",
+            "logBase": 1,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false
+        }
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "1": {
+                    "color": "dark-green",
+                    "index": 0,
+                    "text": "Normal"
+                  },
+                  "2": {
+                    "color": "super-light-red",
+                    "index": 1,
+                    "text": "Warning "
+                  },
+                  "3": {
+                    "color": "light-red",
+                    "index": 2,
+                    "text": "Critical "
+                  },
+                  "4": {
+                    "color": "semi-dark-red",
+                    "index": 3,
+                    "text": "Shutdown "
+                  },
+                  "5": {
+                    "color": "dark-red",
+                    "index": 4,
+                    "text": "Not Present"
+                  },
+                  "6": {
+                    "color": "dark-orange",
+                    "index": 5,
+                    "text": "Not Functioning"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 67
+        },
+        "id": 47,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "titleSize": 18,
+            "valueSize": 10
+          },
+          "textMode": "value_and_name"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "ciscoEnvMonFanState{job=\"snmp_switch\",ciscoEnvMonFanStatusIndex!=\"1\"}",
+            "format": "time_series",
+            "interval": "",
+            "legendFormat": "{{ciscoEnvMonFanStatusIndex}} {{instance}}  ",
+            "refId": "A"
+          }
+        ],
+        "title": "Power Supply Fan Status Of Switches",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "1": {
+                    "color": "dark-green",
+                    "index": 0,
+                    "text": "Normal "
+                  },
+                  "2": {
+                    "color": "super-light-red",
+                    "index": 1,
+                    "text": "Warning "
+                  },
+                  "3": {
+                    "color": "light-red",
+                    "index": 2,
+                    "text": "Critical "
+                  },
+                  "4": {
+                    "color": "semi-dark-red",
+                    "index": 3,
+                    "text": "Shutdown "
+                  },
+                  "5": {
+                    "color": "dark-red",
+                    "index": 4,
+                    "text": "Not Present"
+                  },
+                  "6": {
+                    "color": "dark-orange",
+                    "index": 5,
+                    "text": "Not Functioning"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 2
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 24,
+          "x": 0,
+          "y": 72
+        },
+        "id": 48,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "titleSize": 18,
+            "valueSize": 10
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.2.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "exemplar": true,
+            "expr": "ciscoEnvMonSupplyState{job=\"snmp_switch\"}",
+            "format": "time_series",
+            "interval": "",
+            "legendFormat": "{{ciscoEnvMonSupplyStatusIndex}} {{instance}}  ",
+            "refId": "A"
+          }
+        ],
+        "title": "Power Supply Status Of Switches",
+        "type": "stat"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [
+      "Prometheus",
+      "snmp_exporter"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "definition": "label_values(ifHCInOctets,  job)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "Job",
+          "options": [],
+          "query": {
+            "query": "label_values(ifHCInOctets,  job)",
+            "refId": "Prometheus-Job-Variable-Query"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "current": {},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "definition": "label_values(ifHCInOctets{job=\"snmp_switch\"}, instance)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Instance",
+          "multi": false,
+          "name": "Instance",
+          "options": [],
+          "query": {
+            "query": "label_values(ifHCInOctets{job=\"snmp_switch\"}, instance)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 2,
+          "type": "query"
+        },
+        {
+          "current": {},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "definition": "label_values(ifHCInOctets{job=\"snmp_switch\",instance=\"$Instance\"}, ifAlias)",
+          "hide": 0,
+          "includeAll": false,
+          "multi": false,
+          "name": "ifAlias",
+          "options": [],
+          "query": {
+            "query": "label_values(ifHCInOctets{job=\"snmp_switch\",instance=\"$Instance\"}, ifAlias)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "auto": false,
+          "auto_count": 30,
+          "auto_min": "10s",
+          "current": {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          "hide": 0,
+          "label": "interval",
+          "name": "interval",
+          "options": [
+            {
+              "selected": false,
+              "text": "1m",
+              "value": "1m"
+            },
+            {
+              "selected": false,
+              "text": "5m",
+              "value": "5m"
+            },
+            {
+              "selected": false,
+              "text": "15m",
+              "value": "15m"
+            },
+            {
+              "selected": false,
+              "text": "30m",
+              "value": "30m"
+            },
+            {
+              "selected": false,
+              "text": "45m",
+              "value": "45m"
+            },
+            {
+              "selected": false,
+              "text": "1h",
+              "value": "1h"
+            },
+            {
+              "selected": false,
+              "text": "6h",
+              "value": "6h"
+            },
+            {
+              "selected": true,
+              "text": "12h",
+              "value": "12h"
+            },
+            {
+              "selected": false,
+              "text": "1d",
+              "value": "1d"
+            },
+            {
+              "selected": false,
+              "text": "7d",
+              "value": "7d"
+            },
+            {
+              "selected": false,
+              "text": "14d",
+              "value": "14d"
+            },
+            {
+              "selected": false,
+              "text": "30d",
+              "value": "30d"
+            }
+          ],
+          "query": "1m,5m.15m,30m,45m,1h,6h,12h,1d,7d,14d,30d",
+          "queryValue": "",
+          "refresh": 2,
+          "skipUrlSync": false,
+          "type": "interval"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "Cisco switch",
+    "uid": "wxJYd3S7z",
+    "version": 128,
+    "weekStart": ""
+  }
