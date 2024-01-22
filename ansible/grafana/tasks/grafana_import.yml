@@ -31,7 +31,8 @@
     state: present
     commit_message: Updated by ansible
     overwrite: yes
-    path: "root/Cisco_switch.json"
+    path: "{{path}}{{uid}}.json"
+    #path: "root/Cisco_switch.json"
   tags:
     - grafana_import
 
