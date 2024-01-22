@@ -18,7 +18,8 @@
 
 - name: Copy dashboard JSON file to target host
   copy:
-    src: "{{ path }}/files/Cisco_switch.json"
+    path: "{{path}}{{uid}}.json"
+    #src: "{{ path }}/files/Cisco_switch.json"
     dest: "/root"
 
 
