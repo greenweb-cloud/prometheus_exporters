@@ -12,6 +12,11 @@
 
 #- debug: msg="{{snmp_status}}"
 
+- name: install snmp and snmpd
+  shell: "sudo apt install snmp snmpd"
+  tags:
+    - snmp 
+    
 - name: scp config_monitoring snmp exporter
   copy:
     src: "{{ source_snmp_exporter }}"
@@ -50,3 +55,4 @@
   tags:
     - snmp
     - reset_prometheus
+
